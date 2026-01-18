@@ -18,11 +18,10 @@ import InfoPanel from '../components/InfoPanel.astro';
         </div>
 
         <div class="relative z-10 px-4 w-full max-w-4xl mx-auto flex flex-col items-center">
-            
             <img 
                 src="/logo.png" 
                 alt="Logo Borja & Susan" 
-                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-6 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl transition-all"
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-6 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
             />
 
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md text-amber-300 text-xs font-bold border border-white/10 mb-6 animate-pulse shadow-lg">
@@ -46,117 +45,126 @@ import InfoPanel from '../components/InfoPanel.astro';
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
     </div>
 
-    <div class="relative z-20 pt-32 md:pt-48 flex flex-col gap-32 md:gap-40 pb-20">
+    <div class="relative z-20 pt-20 md:pt-32 flex flex-col pb-20">
+        
+        <div class="text-center py-0 my-0">
+            <h2 class="text-5xl md:text-7xl font-[900] text-white leading-none">
+                Nuestros<br/>
+                <span class="text-amber-500">Alojamientos:</span>
+            </h2>
+        </div>
 
-        <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-            <div class="w-full md:w-1/2 space-y-8">
-                <div>
-                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">22-25 JUL · 3 NOCHES</span>
-                    <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Selva de Ubud 🐒</h2>
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        Empezamos fuerte en el <strong>Kaamala Resort</strong>. Piscina privada y vistas a la selva. El plan aquí es descansar, ver arrozales y esquivar a los monos.
-                    </p>
+        <div class="flex flex-col gap-32 md:gap-40 mt-12">
+            <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">22-25 JUL · 3 NOCHES</span>
+                        <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Selva de Ubud 🐒</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                            Empezamos fuerte en el <strong>Kaamala Resort</strong>. Piscina privada y vistas a la selva. El plan aquí es descansar, ver arrozales y esquivar a los monos.
+                        </p>
+                    </div>
+                    <div class="grid gap-4">
+                        <InfoPanel title="Cuidado con los Monos" text="En el 'Monkey Forest' les encantan las cosas brillantes. ¡Guarda bien las gafas de sol!">
+                            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-3z"/><path d="M7 10c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-3z"/><path d="M12 2a7 7 0 0 0-2 13.5V18h4v-2.5A7 7 0 0 0 12 2z"/><path d="M9 18h6v4H9z"/></svg>
+                        </InfoPanel>
+                    </div>
                 </div>
-                <div class="grid gap-4">
-                    <InfoPanel title="Cuidado con los Monos" text="En el 'Monkey Forest' les encantan las cosas brillantes. ¡Guarda bien las gafas de sol!">
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-3z"/><path d="M7 10c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-1.3-3-3-1.3-3-3-1.3-3-3-3z"/><path d="M12 2a7 7 0 0 0-2 13.5V18h4v-2.5A7 7 0 0 0 12 2z"/><path d="M9 18h6v4H9z"/></svg>
-                    </InfoPanel>
+                <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
+                    <BentoItem title="Kaamala Resort Ubud" subtitle="Alojamiento de Lujo" href="https://www.booking.com/hotel/id/kaamala-resort-ubud.es.html" class="h-full shadow-2xl shadow-amber-500/10">
+                        <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipNhMv8_vY1jOJPhYqs68I6O7qktqmHEOwpYMDnz=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    </BentoItem>
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
-                 <BentoItem title="Kaamala Resort Ubud" subtitle="Alojamiento de Lujo" href="https://www.booking.com/hotel/id/kaamala-resort-ubud.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipNhMv8_vY1jOJPhYqs68I6O7qktqmHEOwpYMDnz=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
-                </BentoItem>
-            </div>
-        </section>
+            </section>
 
-         <section class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
-            <div class="w-full md:w-1/2 space-y-8">
-                <div>
-                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">25-27 JUL · 2 NOCHES</span>
-                    <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Villas y Acantilados 🌊</h2>
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        Bajamos al sur para estar en <strong>Hideaway Villas</strong>. Zona tranquila, atardeceres espectaculares y nuestra propia piscina para brindar a gusto.
-                    </p>
+            <section class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">25-27 JUL · 2 NOCHES</span>
+                        <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Villas y Acantilados 🌊</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                            Bajamos al sur para estar en <strong>Uluwatu</strong>. Zona tranquila, atardeceres espectaculares y nuestra propia piscina para brindar a gusto.
+                        </p>
+                    </div>
+                    <div class="grid gap-4">
+                        <InfoPanel title="El Templo Guardián" text="El Templo de Uluwatu está en un acantilado de 70 metros. Protege a la isla de los malos espíritus.">
+                            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M20 20v-5a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5v5"/><path d="M12 4v6"/><path d="M12 4a4 4 0 1 1 0 8 4 4 0 1 1 0-8"/></svg>
+                        </InfoPanel>
+                    </div>
                 </div>
-                <div class="grid gap-4">
-                     <InfoPanel title="El Templo Guardián" text="El Templo de Uluwatu está en un acantilado de 70 metros. Protege a la isla de los malos espíritus.">
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M20 20v-5a5 5 0 0 0-5-5H9a5 5 0 0 0-5 5v5"/><path d="M12 4v6"/><path d="M12 4a4 4 0 1 1 0 8 4 4 0 1 1 0-8"/></svg>
-                     </InfoPanel>
+                <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
+                    <BentoItem title="Hideaway Villas" subtitle="Vistas al Océano" href="https://www.booking.com/hotel/id/hideaway-villas-bali.es.html" class="h-full shadow-2xl shadow-amber-500/10">
+                        <img slot="image" src="https://images.trvl-media.com/lodging/14000000/13130000/13123100/13123041/9fce953e.jpg?impolicy=fcrop&w=1200&h=800&quality=medium" class="w-full h-full object-cover" />
+                    </BentoItem>
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
-                 <BentoItem title="Hideaway Villas" subtitle="Vistas al Océano" href="https://www.booking.com/hotel/id/hideaway-villas-bali.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://images.trvl-media.com/lodging/14000000/13130000/13123100/13123041/9fce953e.jpg?impolicy=fcrop&w=1200&h=800&quality=medium" class="w-full h-full object-cover" />
-                </BentoItem>
-            </div>
-        </section>
+            </section>
 
-        <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-            <div class="w-full md:w-1/2 space-y-8">
-                <div>
-                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">27-29 JUL · 2 NOCHES</span>
-                    <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Seminyak Chic 🍸</h2>
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        ¡Un poco de civilización! En <strong>Montigo Resorts</strong> estamos al lado de las tiendas y restaurantes. Aquí toca cenar bien y dar algún paseo nocturno.
-                    </p>
+            <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">27-29 JUL · 2 NOCHES</span>
+                        <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Seminyak Chic 🍸</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                            En <strong>Montigo Resorts</strong> estamos en el epicentro de las tiendas y restaurantes mas punteros de Bali.
+                        </p>
+                    </div>
+                    <div class="grid gap-4">
+                        <InfoPanel title="Golden Hour" text="Seminyak es la zona 'chic' de Bali. Atardeceres famosos.">
+                            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 22H2"/><path d="M8 22v-8a4 4 0 1 1 8 0v8"/><path d="M12 9V5"/><path d="M14.83 6.17 13.41 7.59"/><path d="M9.17 6.17l1.42 1.42"/><path d="M4 22H2"/><path d="M20 22h2"/><path d="M12 2v2"/></svg>
+                        </InfoPanel>
+                    </div>
                 </div>
-                 <div class="grid gap-4">
-                     <InfoPanel title="Golden Hour" text="Seminyak es la zona 'chic' de Bali. Las puestas de sol más famosas desde los chiringuitos.">
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 22H2"/><path d="M8 22v-8a4 4 0 1 1 8 0v8"/><path d="M12 9V5"/><path d="M14.83 6.17 13.41 7.59"/><path d="M9.17 6.17l1.42 1.42"/><path d="M4 22H2"/><path d="M20 22h2"/><path d="M12 2v2"/></svg>
-                     </InfoPanel>
+                <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
+                    <BentoItem title="Montigo Resorts" subtitle="Zona de Moda" href="https://www.booking.com/hotel/id/montigo-resorts-seminyak.es.html" class="h-full shadow-2xl shadow-amber-500/10">
+                        <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipOqIS3B4TTGlWFuMaTvO00zdMwfoPMx9lbQovgi=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    </BentoItem>
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
-                 <BentoItem title="Montigo Resorts" subtitle="Zona de Moda" href="https://www.booking.com/hotel/id/montigo-resorts-seminyak.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipOqIS3B4TTGlWFuMaTvO00zdMwfoPMx9lbQovgi=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
-                </BentoItem>
-            </div>
-        </section>
+            </section>
 
-        <section class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
-            <div class="w-full md:w-1/2 space-y-8">
-                <div>
-                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">29 JUL - 04 AGO · 6 NOCHES</span>
-                    <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Paraíso Descalzo 🐢</h2>
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        6 días sin coches en el <strong>Pearl of Trawangan</strong>. Solo bicis y caballos. El plan es simple: gafas de buceo, tortugas y relax absoluto.
-                    </p>
+            <section class="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">29 JUL - 04 AGO · 6 NOCHES</span>
+                        <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Paraíso Descalzo 🐢</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                            6 días en el <strong>Pearl of Trawangan</strong>. Solo bicis y tortugas.
+                        </p>
+                    </div>
+                    <div class="grid gap-4">
+                        <InfoPanel title="Sin Motores" text="En las Islas Gili está prohibido cualquier vehículo a motor.">
+                            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/><path d="m14.83 9.17-5.66 5.66"/></svg>
+                        </InfoPanel>
+                    </div>
                 </div>
-                <div class="grid gap-4">
-                     <InfoPanel title="Sin Motores" text="En las Islas Gili está prohibido cualquier vehículo a motor. Todo se mueve en bici o Cidomo.">
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/><path d="m14.83 9.17-5.66 5.66"/></svg>
-                     </InfoPanel>
+                <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
+                    <BentoItem title="Pearl of Trawangan" subtitle="Isla sin Coches" href="https://www.booking.com/hotel/id/pearl-of-trawangan.es.html" class="h-full shadow-2xl shadow-amber-500/10">
+                        <img slot="image" src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxQ7yyVTLz2-dz3jof4uVwInEhfz5nG7k6xZwXrn1wLj0oT4IJp6QN3Nzk4koq_Xa2xSGDp1Cm8q76y5qvtSwrrhfidGoksxs2kFBHb-I84Iu9DLqLn2glVtW-YPDZFlkEtC3bp=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    </BentoItem>
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
-                 <BentoItem title="Pearl of Trawangan" subtitle="Isla sin Coches" href="https://www.booking.com/hotel/id/pearl-of-trawangan.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxQ7yyVTLz2-dz3jof4uVwInEhfz5nG7k6xZwXrn1wLj0oT4IJp6QN3Nzk4koq_Xa2xSGDp1Cm8q76y5qvtSwrrhfidGoksxs2kFBHb-I84Iu9DLqLn2glVtW-YPDZFlkEtC3bp=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
-                </BentoItem>
-            </div>
-        </section>
+            </section>
 
-         <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
-            <div class="w-full md:w-1/2 space-y-8">
-                <div>
-                    <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">04-07 AGO · 3 NOCHES</span>
-                    <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Lombok Salvaje 🥥</h2>
-                    <p class="text-zinc-400 text-lg leading-relaxed mb-8">
-                        Terminamos en <strong>Amber Lombok</strong>. Playas vírgenes y mucha paz antes de volver. Susan, ¡aquí es donde nos hacemos el tatuaje de recuerdo! 😉
-                    </p>
+            <section class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-2 block">04-07 AGO · 3 NOCHES</span>
+                        <h2 class="text-4xl md:text-5xl font-[900] text-white mb-6 leading-tight">Lombok Salvaje 🥥</h2>
+                        <p class="text-zinc-400 text-lg leading-relaxed mb-8">
+                            Terminamos en <strong>Amber Lombok</strong>. Playas vírgenes y mucha paz.
+                        </p>
+                    </div>
+                    <div class="grid gap-4">
+                        <InfoPanel title="El Tatuaje Final" text="Lombok es salvaje y virgen.">
+                            <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 15 2 2"/><path d="m14 13 2 2"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/></svg>
+                        </InfoPanel>
+                    </div>
                 </div>
-                 <div class="grid gap-4">
-                     <InfoPanel title="El Tatuaje Final" text="Lombok es como 'la Bali de hace 20 años'. Mucho más tranquila, salvaje y con playas casi vacías.">
-                        <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 15 2 2"/><path d="m14 13 2 2"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/><path d="m6.34 17.66-1.41 1.41"/></svg>
-                     </InfoPanel>
+                <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
+                    <BentoItem title="Amber Beach Resort" subtitle="Playa Virgen" href="https://www.booking.com/hotel/id/amber-beach-resort-lombok.es.html" class="h-full shadow-2xl shadow-amber-500/10">
+                        <img slot="image" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/569996718.jpg?k=4c0d7960c24e001da6648072c7986e7b27823b35dc1db04ee8fc6462310cb536&o=" class="w-full h-full object-cover" />
+                    </BentoItem>
                 </div>
-            </div>
-            <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
-                 <BentoItem title="Amber Beach Resort" subtitle="Playa Virgen" href="https://www.booking.com/hotel/id/amber-beach-resort-lombok.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/569996718.jpg?k=4c0d7960c24e001da6648072c7986e7b27823b35dc1db04ee8fc6462310cb536&o=" class="w-full h-full object-cover" />
-                </BentoItem>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 
     <section id="presupuesto" class="relative z-20 bg-zinc-900/80 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-16 mb-20 text-center">
@@ -165,11 +173,11 @@ import InfoPanel from '../components/InfoPanel.astro';
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-black/50 p-8 rounded-3xl border border-white/5 ring-1 ring-white/10 group hover:ring-amber-500/50 transition-all">
                     <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-3">✈️ Vuelos Totales</p>
-                    <p class="text-4xl font-[900] text-white group-hover:text-amber-300 transition-colors">1.660€</p>
+                    <p class="text-4xl font-[900] text-white group-hover:text-amber-300">1.660€</p>
                 </div>
                 <div class="bg-black/50 p-8 rounded-3xl border border-white/5 ring-1 ring-white/10 group hover:ring-amber-500/50 transition-all">
                     <p class="text-zinc-500 text-sm font-bold uppercase tracking-widest mb-3">🏨 16 Noches Hotel</p>
-                    <p class="text-4xl font-[900] text-amber-400 group-hover:text-amber-300 transition-colors">1.748€</p>
+                    <p class="text-4xl font-[900] text-amber-400 group-hover:text-amber-300">1.748€</p>
                 </div>
                 <div class="bg-white p-8 rounded-3xl text-black shadow-2xl shadow-amber-500/20 transform md:scale-110 relative z-10">
                     <p class="text-zinc-600 text-sm font-bold uppercase tracking-widest mb-3">⭐ TOTAL / PERSONA</p>

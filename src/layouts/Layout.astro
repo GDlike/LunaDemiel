@@ -18,10 +18,13 @@ const { title } = Astro.props;
 	<body class="text-slate-200 antialiased selection:bg-amber-500/30 selection:text-amber-200 relative">
         
         <nav class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
-            <div class="flex items-center justify-between gap-2 md:gap-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full pl-5 pr-4 py-2 shadow-2xl overflow-x-auto max-w-[98vw]">
+            <div class="flex items-center justify-between gap-2 md:gap-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full pl-3 pr-4 py-2 shadow-2xl overflow-x-auto max-w-[98vw]">
                 
-                <a href="/" class="font-[900] text-base md:text-lg tracking-tighter text-white hover:text-amber-400 transition-colors shrink-0">
-                    B&S <span class="text-amber-500 font-light">2026</span>
+                <a href="/" class="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-full border border-white/5 hover:bg-amber-500/20 hover:border-amber-500/30 transition-all shrink-0 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:scale-110 transition-transform"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span class="font-[900] text-sm md:text-base tracking-tighter text-white">
+                        B&S <span class="text-amber-500 font-light">2026</span>
+                    </span>
                 </a>
 
                 <ul class="flex items-center gap-0.5 md:gap-1 text-[11px] md:text-sm font-medium text-zinc-300">
@@ -35,13 +38,20 @@ const { title } = Astro.props;
             </div>
         </nav>
 
+        <div class="fixed bottom-6 left-6 z-50">
+            <a href="https://borjaysusan.com" target="_blank" class="flex items-center gap-3 bg-amber-500/10 backdrop-blur-md border border-amber-500/20 px-4 py-2 rounded-full hover:bg-amber-500 hover:border-amber-400 hover:scale-105 transition-all shadow-[0_0_20px_rgba(245,158,11,0.2)] group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:text-white"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                <span class="font-bold text-white text-sm">Web Boda</span>
+            </a>
+        </div>
+
         <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
             <a href="https://www.instagram.com/hanzohiro/" target="_blank" class="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full hover:bg-amber-600 hover:border-amber-500 hover:scale-105 transition-all shadow-lg group">
                 <span class="font-bold text-white text-sm">@HanzoHiro</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:text-white"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
-            <a href="https://www.instagram.com/sussjtm/" target="_blank" class="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full hover:bg-amber-600 hover:border-amber-500 hover:scale-105 transition-all shadow-lg group">
-                <span class="font-bold text-white text-sm">@sussjtm</span>
+            <a href="https://www.instagram.com/susan.jtm/" target="_blank" class="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full hover:bg-amber-600 hover:border-amber-500 hover:scale-105 transition-all shadow-lg group">
+                <span class="font-bold text-white text-sm">@susan.jtm</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:text-white"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
         </div>
@@ -56,36 +66,11 @@ const { title } = Astro.props;
 
 <style is:global>
 	html { font-family: 'Outfit', sans-serif; }
-    
-    /* ESTILOS PARTÍCULAS DORADAS */
     .firefly {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background-color: #f59e0b; /* Amber-500 */
-        border-radius: 50%;
-        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6);
-        opacity: 0;
+        position: absolute; width: 3px; height: 3px; background-color: #f59e0b; border-radius: 50%;
+        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6); opacity: 0;
         animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
     }
-
-    @keyframes floatUp {
-        0% { transform: translateY(100vh); }
-        100% { transform: translateY(-10vh); }
-    }
-
-    @keyframes twinkle {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 0.9; }
-    }
-
-    /* Posiciones de partículas para que no se vea vacío */
-    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
-    .firefly:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; }
-    .firefly:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 5s; }
-    .firefly:nth-child(4) { left: 60%; animation-duration: 14s; animation-delay: 1s; }
-    .firefly:nth-child(5) { left: 75%; animation-duration: 16s; animation-delay: 3s; }
-    .firefly:nth-child(6) { left: 90%; animation-duration: 13s; animation-delay: 6s; }
-    .firefly:nth-child(7) { left: 5%; animation-duration: 19s; animation-delay: 4s; }
-    .firefly:nth-child(8) { left: 15%; animation-duration: 11s; animation-delay: 7s; }
+    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.9; } }
 </style>
