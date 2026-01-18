@@ -9,7 +9,7 @@ import Layout from '../layouts/Layout.astro';
             <img 
                 src="https://iili.io/fUiEt49.png" 
                 alt="Portada" 
-                class="w-full h-full object-cover scale-105 blur-[1px] opacity-80"
+                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
             />
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
             <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
@@ -19,7 +19,7 @@ import Layout from '../layouts/Layout.astro';
             <img 
                 src="/logo.png" 
                 alt="Logo Borja & Susan" 
-                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 drop-shadow-2xl rounded-2xl"
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
             />
         </div>
     </header>
@@ -28,96 +28,153 @@ import Layout from '../layouts/Layout.astro';
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
     </div>
 
     <div class="pt-10 pb-20 px-4 max-w-5xl mx-auto relative z-20 space-y-32">
         
         <div class="text-center">
-            <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">TRADICIÓN MILENARIA</span>
-            <h1 class="text-5xl md:text-7xl font-[900] text-white mb-8">El Alma de Bali 🕉️</h1>
-            <p class="text-zinc-400 text-xl max-w-3xl mx-auto leading-relaxed">
-                Bali no es solo surf y playa. Es la única isla hinduista en una nación musulmana. Su día a día se rige por el <strong>Tri Hita Karana</strong>: la armonía entre los humanos, la naturaleza y los dioses.
+            <span class="text-amber-400 font-[900] tracking-[0.3em] uppercase text-xs mb-4 block animate-pulse">Tradicción Milenaria</span>
+            <h1 class="text-5xl md:text-8xl font-[900] text-white mb-8 leading-none">El Alma <br/><span class="text-amber-500 underline decoration-white/10 underline-offset-8">de Bali.</span></h1>
+            <p class="text-zinc-400 text-xl max-w-3xl mx-auto leading-relaxed font-light">
+                Bali no es solo surf y playa. Es la única isla hinduista en una nación mayoritariamente musulmana. Su vida se rige por el <strong>Tri Hita Karana</strong>: armonía entre humanos, naturaleza y dioses.
             </p>
         </div>
 
         <div class="flex flex-col md:flex-row items-center gap-12 bg-zinc-900/40 border border-white/5 rounded-[3rem] p-8 md:p-0 overflow-hidden group hover:border-amber-500/20 transition-all">
-            <div class="w-full md:w-1/2 h-[400px] relative order-2 md:order-1">
-                <img src="https://images.unsplash.com/photo-1554481923-a6918bd997bc?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Ofrenda Bali" />
+            <div class="w-full md:w-1/2 h-[450px] relative order-2 md:order-1">
+                <img src="https://images.unsplash.com/photo-1554481923-a6918bd997bc?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Ofrendas" />
             </div>
             <div class="w-full md:w-1/2 md:p-12 order-1 md:order-2">
-                <h3 class="text-3xl font-[900] text-white mb-6">Canang Sari: Gratitud Diaria</h3>
+                <h3 class="text-3xl font-[900] text-white mb-6">Canang Sari: Gratitud</h3>
                 <p class="text-zinc-400 text-lg mb-6 leading-relaxed">
-                    Verás estas cestitas de hoja de palma por todas partes: en el suelo, sobre las motos, en los mostradores. Contienen flores (direcciones de los dioses), arroz e incienso.
+                    Verás estas cestitas de palma por todas partes. Son ofrendas diarias con flores, arroz e incienso para agradecer la paz del mundo.
                 </p>
-                <div class="bg-amber-900/20 p-6 rounded-2xl border-l-4 border-amber-500">
+                <div class="bg-amber-500/10 p-6 rounded-2xl border-l-4 border-amber-500">
                     <p class="text-white font-bold mb-1">⚠️ Regla de Oro</p>
-                    <p class="text-zinc-400 text-sm">Nunca las pises a propósito ni pases por encima. Rodéalas. Si las pisas sin querer, pide perdón mentalmente, ellos entienden.</p>
+                    <p class="text-zinc-400 text-sm italic">Nunca las pises a propósito. Si pisas una sin querer sobre la acera, no pasa nada, pide perdón mentalmente y sigue.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-12">
+            <h2 class="text-4xl font-[900] text-white text-center">Protocolo Balinés 🤝</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-zinc-900/60 p-10 rounded-[2.5rem] border border-emerald-500/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 text-4xl opacity-20">✅</div>
+                    <h4 class="text-emerald-400 font-black text-xl mb-6 tracking-widest uppercase italic">Bien Visto</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="text-emerald-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Usa la mano derecha:</strong> Para dar o recibir cosas (dinero, comida). La izquierda se considera "impura" por usarse en el baño.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-emerald-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Viste con respeto:</strong> Especialmente en templos. Un Sarong (pareo) siempre a mano.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-emerald-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Sonreír siempre:</strong> En Bali, una sonrisa resuelve cualquier conflicto o duda.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-zinc-900/60 p-10 rounded-[2.5rem] border border-red-500/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-6 text-4xl opacity-20">❌</div>
+                    <h4 class="text-red-400 font-black text-xl mb-6 tracking-widest uppercase italic">Mal Visto</h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span class="text-red-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Tocar la cabeza:</strong> Es la parte más sagrada del cuerpo. Nunca toques la cabeza de un niño o un adulto.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-red-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Señalar con el dedo:</strong> Si necesitas señalar algo, hazlo con el pulgar o con la mano abierta.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-red-500 font-bold">●</span>
+                            <p class="text-zinc-300 text-sm"><strong>Enfadarse en público:</strong> Perder los papeles se considera una pérdida de honor (Malum).</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <div class="flex flex-col md:flex-row-reverse items-center gap-12">
-            <div class="w-full md:w-1/2 h-[400px] rounded-[3rem] overflow-hidden relative shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?q=80&w=800" class="absolute inset-0 w-full h-full object-cover" alt="Poleng Bali" />
+            <div class="w-full md:w-1/2 h-[450px] rounded-[3rem] overflow-hidden relative shadow-2xl group">
+                <img src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?q=80&w=800" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all" alt="Poleng" />
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <p class="text-white font-black text-2xl tracking-widest uppercase italic">Dualidad</p>
+                </div>
             </div>
             <div class="w-full md:w-1/2">
-                <span class="text-zinc-500 font-bold uppercase tracking-widest text-xs mb-2 block">FILOSOFÍA</span>
-                <h3 class="text-3xl font-[900] text-white mb-6">El 'Kain Poleng' (Ajedrez)</h3>
-                <p class="text-zinc-400 text-lg mb-6 leading-relaxed">
-                    Verás árboles y estatuas envueltos en una tela de cuadros blancos y negros. No es decoración. Representa el <strong>Rwa Bhineda</strong> (el equilibrio):
+                <span class="text-amber-500 font-black uppercase tracking-widest text-xs mb-2 block italic">Filosofía Rwa Bhineda</span>
+                <h3 class="text-4xl font-[900] text-white mb-6">Blanco y Negro</h3>
+                <p class="text-zinc-400 text-lg mb-8 leading-relaxed">
+                    Verás telas de cuadros blancos y negros envolviendo árboles y estatuas. Representan el equilibrio eterno entre el bien y el mal, la luz y la sombra.
                 </p>
-                <ul class="space-y-4">
-                    <li class="flex items-center gap-4 text-zinc-300">
-                        <span class="w-3 h-3 bg-white rounded-full shadow-[0_0_10px_white]"></span>
-                        <span>Lo Blanco (Dharma - Bien)</span>
-                    </li>
-                    <li class="flex items-center gap-4 text-zinc-300">
-                        <span class="w-3 h-3 bg-black rounded-full border border-white/20"></span>
-                        <span>Lo Negro (Adharma - Mal)</span>
-                    </li>
-                </ul>
-                <p class="text-zinc-500 text-sm mt-6 italic">
-                    Para los balineses, el objetivo no es destruir el mal, sino mantenerlo en equilibrio con el bien para que exista armonía.
-                </p>
+                <div class="flex gap-4">
+                    <div class="bg-white/10 h-16 w-16 rounded-2xl flex flex-col items-center justify-center border border-white/20">
+                        <div class="w-6 h-6 bg-white rounded-full"></div>
+                    </div>
+                    <div class="bg-white/10 h-16 w-16 rounded-2xl flex flex-col items-center justify-center border border-white/20">
+                        <div class="w-6 h-6 bg-black rounded-full border border-white/30"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-12">
+            <h2 class="text-center text-zinc-500 font-black uppercase tracking-[0.4em] text-sm">¿Sabías que...? 💡</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-zinc-900/30 p-8 rounded-[2rem] border border-white/5 hover:bg-amber-500/5 transition-all">
+                    <p class="text-3xl mb-4">👶</p>
+                    <h5 class="text-white font-black mb-3 italic uppercase text-sm">Solo 4 nombres</h5>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Casi todo el mundo en Bali se llama Wayan, Made, Nyoman o Ketut. Es por su orden de nacimiento. ¡Un lío!</p>
+                </div>
+                <div class="bg-zinc-900/30 p-8 rounded-[2rem] border border-white/5 hover:bg-amber-500/5 transition-all">
+                    <p class="text-3xl mb-4">🦷</p>
+                    <h5 class="text-white font-black mb-3 italic uppercase text-sm">Limado de dientes</h5>
+                    <p class="text-zinc-500 text-sm leading-relaxed">Al llegar a la adolescencia, se liman los colmillos para simbolizar que se han eliminado los instintos animales.</p>
+                </div>
+                <div class="bg-zinc-900/30 p-8 rounded-[2rem] border border-white/5 hover:bg-amber-500/5 transition-all">
+                    <p class="text-3xl mb-4">💩</p>
+                    <h5 class="text-white font-black mb-3 italic uppercase text-sm">Café de "Caca"</h5>
+                    <p class="text-zinc-500 text-sm leading-relaxed">El Kopi Luwak se hace con granos comidos y defecados por una civeta. ¡Es el más caro del mundo!</p>
+                </div>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-zinc-900/50 border border-white/10 p-10 rounded-[2.5rem] hover:bg-zinc-900 transition-colors">
+            <div class="bg-zinc-900/50 border border-white/10 p-10 rounded-[2.5rem] group hover:bg-zinc-900 transition-colors">
                 <div class="text-5xl mb-6">🕍</div>
-                <h3 class="text-2xl font-bold text-white mb-4">Etiqueta en los 'Pura'</h3>
-                <p class="text-zinc-400 leading-relaxed mb-6">
-                    Los templos son sagrados. La regla número uno es <strong>cubrirse las piernas</strong>. Tanto hombres como mujeres deben llevar un 'Sarong' (pareo) y un fajín en la cintura.
+                <h3 class="text-2xl font-black text-white mb-4 italic uppercase tracking-tighter">Etiqueta en Templos</h3>
+                <p class="text-zinc-400 leading-relaxed mb-6 italic">
+                    Regla irrenunciable: <strong>cubrirse las piernas</strong>. No importa el calor. Un Sarong y un fajín son obligatorios para entrar.
                 </p>
-                <p class="text-amber-400 text-sm font-bold">Nota: Las mujeres durante la menstruación tienen prohibida la entrada a los templos por considerarse 'impuras' en ese momento. Verás carteles indicándolo.</p>
+                <div class="p-4 bg-red-500/10 border border-red-500/20 rounded-xl">
+                    <p class="text-red-400 text-xs font-black">IMPORTANTE: Durante la menstruación no se permite la entrada a templos (ley religiosa de impureza).</p>
+                </div>
             </div>
 
-            <div class="bg-zinc-900/50 border border-white/10 p-10 rounded-[2.5rem] hover:bg-zinc-900 transition-colors">
+            <div class="bg-zinc-900/50 border border-white/10 p-10 rounded-[2.5rem] group hover:bg-zinc-900 transition-colors">
                 <div class="text-5xl mb-6">🤫</div>
-                <h3 class="text-2xl font-bold text-white mb-4">Nyepi: El Día del Silencio</h3>
-                <p class="text-zinc-400 leading-relaxed mb-6">
-                    Una vez al año (Año Nuevo Balinés), la isla entera se apaga durante 24h. Literalmente.
+                <h3 class="text-2xl font-black text-white mb-4 italic uppercase tracking-tighter">Nyepi: Silencio Total</h3>
+                <p class="text-zinc-400 leading-relaxed mb-4 italic">
+                    Es el año nuevo balinés. La isla se apaga 24h: ni luces, ni coches, ni aeropuerto, ni gente fuera de casa.
                 </p>
-                <ul class="text-zinc-400 text-sm space-y-2 list-disc pl-5">
-                    <li>No hay luces ni electricidad.</li>
-                    <li>Nadie puede salir a la calle (ni turistas).</li>
-                    <li>El aeropuerto cierra.</li>
-                    <li>Es para engañar a los malos espíritus, haciéndoles creer que la isla está deshabitada para que pasen de largo.</li>
-                </ul>
+                <p class="text-zinc-500 text-xs">Se hace para que los malos espíritus crean que la isla está desierta y pasen de largo.</p>
             </div>
         </div>
 
-        <div class="bg-gradient-to-r from-amber-900/30 to-yellow-900/30 border border-white/10 rounded-[3rem] p-10 md:p-16 text-center relative overflow-hidden">
-             <img src="https://images.unsplash.com/photo-1540573133985-87b6da6dce60?q=80&w=1200" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" />
-             
+        <div class="bg-gradient-to-r from-amber-600/20 to-yellow-600/10 border border-amber-500/30 rounded-[3rem] p-10 md:p-16 text-center relative overflow-hidden group">
+             <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540573133985-87b6da6dce60?q=80&w=1200')] bg-cover opacity-10 grayscale group-hover:grayscale-0 transition-all duration-1000"></div>
              <div class="relative z-10">
-                <h3 class="text-3xl font-[900] text-white mb-4">🐒 Los Guardianes Peludos</h3>
+                <h3 class="text-4xl font-[900] text-white mb-4 italic uppercase">Guardianes del Templo 🐒</h3>
                 <p class="text-zinc-300 text-lg max-w-2xl mx-auto leading-relaxed">
-                    Los macacos de cola larga se consideran sagrados y guardianes de los templos (como en Uluwatu o Ubud). 
-                    Pero ojo: son <strong>mafiosos inteligentes</strong>. Saben que las gafas y los móviles son valiosos para ti y te los robarán para "negociar" un intercambio por comida.
+                    Los monos de Uluwatu son sagrados... y <strong>mafiosos profesionales</strong>. Roban gafas y móviles para chantajearte y que les des comida a cambio.
                 </p>
+                <div class="mt-8 inline-block px-6 py-2 border border-amber-500 text-amber-500 font-black text-xs uppercase tracking-widest rounded-full">
+                    ⚠️ Guarda todo en la mochila
+                </div>
              </div>
         </div>
 
@@ -125,10 +182,9 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-    /* Estilos Firefly (Copiados del index) */
     .firefly {
-        position: absolute; width: 3px; height: 3px; background-color: #6366f1; border-radius: 50%;
-        box-shadow: 0 0 10px 2px rgba(99,102,241, 0.4); opacity: 0;
+        position: absolute; width: 3px; height: 3px; background-color: #f59e0b; border-radius: 50%;
+        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6); opacity: 0;
         animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
     }
     .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
