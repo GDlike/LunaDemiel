@@ -14,17 +14,14 @@ const { title } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 	</head>
 	<body class="text-slate-200 antialiased selection:bg-amber-500/30 selection:text-amber-200 relative">
         
         <nav class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
             <div class="flex items-center justify-between gap-4 md:gap-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full pl-6 pr-6 py-2 shadow-2xl overflow-x-auto max-w-[95vw]">
-                
                 <a href="/" class="font-[900] text-lg tracking-tighter text-white hover:text-amber-400 transition-colors shrink-0">
                     B&S <span class="text-amber-500 font-light">2026</span>
                 </a>
-
                 <ul class="flex items-center gap-1 text-xs md:text-sm font-medium text-zinc-300">
                     <li><a href="/ruta" class="px-3 py-2 hover:text-white transition-colors rounded-full hover:bg-white/5">Ruta</a></li>
                     <li><a href="/sabores" class="px-3 py-2 hover:text-white transition-colors rounded-full hover:bg-white/5">Sabores</a></li>
@@ -38,12 +35,10 @@ const { title } = Astro.props;
 
         <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
             <a href="https://www.instagram.com/hanzohiro/" target="_blank" class="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full hover:bg-amber-600 hover:border-amber-500 hover:scale-105 transition-all shadow-lg group">
-                <span class="text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity absolute right-12 whitespace-nowrap bg-black/80 px-2 py-1 rounded">Borja</span>
                 <span class="font-bold text-white text-sm">@HanzoHiro</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:text-white"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
             <a href="https://www.instagram.com/sussjtm/" target="_blank" class="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full hover:bg-amber-600 hover:border-amber-500 hover:scale-105 transition-all shadow-lg group">
-                <span class="text-xs font-bold text-white opacity-0 group-hover:opacity-100 transition-opacity absolute right-12 whitespace-nowrap bg-black/80 px-2 py-1 rounded">Susan</span>
                 <span class="font-bold text-white text-sm">@sussjtm</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 group-hover:text-white"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
@@ -59,51 +54,11 @@ const { title } = Astro.props;
 
 <style is:global>
 	html { font-family: 'Outfit', sans-serif; }
-    .leaflet-layer, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-control-attribution {
-        filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
-    }
-
-    /* ESTILOS PARTÍCULAS DORADAS (FIREFLIES) */
     .firefly {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background-color: #fbbf24; /* Amber-400 (Dorado) */
-        border-radius: 50%;
-        box-shadow: 0 0 10px 2px rgba(251, 191, 36, 0.4); /* Glow Dorado */
-        opacity: 0;
+        position: absolute; width: 3px; height: 3px; background-color: #f59e0b; border-radius: 50%;
+        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6); opacity: 0;
         animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
     }
-
-    @keyframes floatUp {
-        0% { transform: translateY(100vh); }
-        100% { transform: translateY(-10vh); }
-    }
-
-    @keyframes twinkle {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 0.8; }
-    }
-
-    /* Posiciones aleatorias */
-    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: 0s; width: 4px; height: 4px; }
-    .firefly:nth-child(2) { left: 20%; animation-duration: 12s; animation-delay: 2s; }
-    .firefly:nth-child(3) { left: 35%; animation-duration: 18s; animation-delay: 5s; width: 2px; height: 2px; }
-    .firefly:nth-child(4) { left: 50%; animation-duration: 14s; animation-delay: 1s; }
-    .firefly:nth-child(5) { left: 65%; animation-duration: 16s; animation-delay: 3s; width: 4px; height: 4px; }
-    .firefly:nth-child(6) { left: 80%; animation-duration: 13s; animation-delay: 6s; }
-    .firefly:nth-child(7) { left: 90%; animation-duration: 19s; animation-delay: 4s; }
-    .firefly:nth-child(8) { left: 5%; animation-duration: 11s; animation-delay: 7s; }
-    .firefly:nth-child(9) { left: 15%; animation-duration: 17s; animation-delay: 1.5s; width: 2px; height: 2px; }
-    .firefly:nth-child(10) { left: 25%; animation-duration: 14s; animation-delay: 4.5s; }
-    .firefly:nth-child(11) { left: 45%; animation-duration: 20s; animation-delay: 0.5s; }
-    .firefly:nth-child(12) { left: 55%; animation-duration: 12s; animation-delay: 2.5s; }
-    .firefly:nth-child(13) { left: 70%; animation-duration: 15s; animation-delay: 5.5s; }
-    .firefly:nth-child(14) { left: 85%; animation-duration: 18s; animation-delay: 1s; }
-    .firefly:nth-child(15) { left: 95%; animation-duration: 16s; animation-delay: 3.5s; }
-    .firefly:nth-child(16) { left: 30%; animation-duration: 22s; animation-delay: 2s; }
-    .firefly:nth-child(17) { left: 60%; animation-duration: 13s; animation-delay: 4s; }
-    .firefly:nth-child(18) { left: 40%; animation-duration: 16s; animation-delay: 6s; }
-    .firefly:nth-child(19) { left: 75%; animation-duration: 14s; animation-delay: 1s; }
-    .firefly:nth-child(20) { left: 10%; animation-duration: 19s; animation-delay: 5s; }
+    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.9; } }
 </style>

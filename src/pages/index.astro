@@ -11,7 +11,7 @@ import InfoPanel from '../components/InfoPanel.astro';
             <img 
                 src="https://iili.io/fUiEt49.png" 
                 alt="Portada" 
-                class="w-full h-full object-cover scale-105 blur-[1px] opacity-80"
+                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
             />
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
             <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
@@ -44,8 +44,6 @@ import InfoPanel from '../components/InfoPanel.astro';
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
         <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span>
     </div>
 
     <div class="relative z-20 pt-32 md:pt-48 flex flex-col gap-32 md:gap-40 pb-20">
@@ -67,7 +65,7 @@ import InfoPanel from '../components/InfoPanel.astro';
             </div>
             <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
                  <BentoItem title="Kaamala Resort Ubud" subtitle="Alojamiento de Lujo" href="https://www.booking.com/hotel/id/kaamala-resort-ubud.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipNhMv8_vY1jOJPhYqs68I6O7qktqmHEOwpYMDnz=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    <img slot="image" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/240561569.jpg?k=3f86e330a8a7605d3369a4c84589d892d1136b3345163f4581f1854585675e2f&o=" class="w-full h-full object-cover" />
                 </BentoItem>
             </div>
         </section>
@@ -111,7 +109,7 @@ import InfoPanel from '../components/InfoPanel.astro';
             </div>
             <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
                  <BentoItem title="Montigo Resorts" subtitle="Zona de Moda" href="https://www.booking.com/hotel/id/montigo-resorts-seminyak.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/p/AF1QipOqIS3B4TTGlWFuMaTvO00zdMwfoPMx9lbQovgi=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    <img slot="image" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/58362431.jpg?k=23178c66840786503f19119c8f00f074465452f36d6e27a69528d2e8b0b53e77&o=" class="w-full h-full object-cover" />
                 </BentoItem>
             </div>
         </section>
@@ -133,7 +131,7 @@ import InfoPanel from '../components/InfoPanel.astro';
             </div>
             <div class="w-full md:w-1/2 h-[500px] md:h-[600px] sticky top-24">
                  <BentoItem title="Pearl of Trawangan" subtitle="Isla sin Coches" href="https://www.booking.com/hotel/id/pearl-of-trawangan.es.html" class="h-full shadow-2xl shadow-amber-500/10">
-                    <img slot="image" src="https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxQ7yyVTLz2-dz3jof4uVwInEhfz5nG7k6xZwXrn1wLj0oT4IJp6QN3Nzk4koq_Xa2xSGDp1Cm8q76y5qvtSwrrhfidGoksxs2kFBHb-I84Iu9DLqLn2glVtW-YPDZFlkEtC3bp=s1360-w1360-h1020-rw" class="w-full h-full object-cover" />
+                    <img slot="image" src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/20042730.jpg?k=3f28325a2f5898d2b963e63b6555c8f858546555986865d21e8e8888e9999e9&o=" class="w-full h-full object-cover" />
                 </BentoItem>
             </div>
         </section>
@@ -188,44 +186,7 @@ import InfoPanel from '../components/InfoPanel.astro';
 </Layout>
 
 <style>
-    /* ESTILOS PARTÍCULAS DORADAS */
-    .firefly {
-        position: absolute;
-        width: 3px;
-        height: 3px;
-        background-color: #f59e0b; 
-        border-radius: 50%;
-        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6);
-        opacity: 0;
-        animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(100vh); }
-        100% { transform: translateY(-10vh); }
-    }
-
-    @keyframes twinkle {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 0.9; }
-    }
-
-    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
-    .firefly:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; }
-    .firefly:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 5s; }
-    .firefly:nth-child(4) { left: 60%; animation-duration: 14s; animation-delay: 1s; }
-    .firefly:nth-child(5) { left: 75%; animation-duration: 16s; animation-delay: 3s; }
-    .firefly:nth-child(6) { left: 90%; animation-duration: 13s; animation-delay: 6s; }
-    .firefly:nth-child(7) { left: 5%; animation-duration: 19s; animation-delay: 4s; }
-    .firefly:nth-child(8) { left: 15%; animation-duration: 11s; animation-delay: 7s; }
-    .firefly:nth-child(9) { left: 35%; animation-duration: 17s; animation-delay: 1.5s; }
-    .firefly:nth-child(10) { left: 55%; animation-duration: 14s; animation-delay: 4.5s; }
-    .firefly:nth-child(11) { left: 85%; animation-duration: 20s; animation-delay: 0.5s; }
-    .firefly:nth-child(12) { left: 20%; animation-duration: 12s; animation-delay: 2.5s; }
-    .firefly:nth-child(13) { left: 70%; animation-duration: 15s; animation-delay: 5.5s; }
-    .firefly:nth-child(14) { left: 45%; animation-duration: 18s; animation-delay: 1s; }
-    .firefly:nth-child(15) { left: 95%; animation-duration: 16s; animation-delay: 3.5s; }
-
+    /* ESTILOS INTERNOS */
     .countdown-box {
         @apply flex flex-col items-center p-4 bg-black/40 backdrop-blur-lg rounded-2xl border border-white/10 shadow-lg;
     }
@@ -235,34 +196,46 @@ import InfoPanel from '../components/InfoPanel.astro';
     .countdown-box .label {
         @apply text-xs text-zinc-300 uppercase tracking-widest mt-2 font-bold;
     }
+
+    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
+    .firefly:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; }
+    .firefly:nth-child(3) { left: 40%; animation-duration: 18s; animation-delay: 5s; }
+    .firefly:nth-child(4) { left: 60%; animation-duration: 14s; animation-delay: 1s; }
+    .firefly:nth-child(5) { left: 75%; animation-duration: 16s; animation-delay: 3s; }
+    /* ... puedes añadir más */
 </style>
 
 <script>
     const weddingDate = new Date(2026, 6, 22, 0, 0, 0).getTime();
+    
     function updateCountdown() {
         const now = new Date().getTime();
         const distance = weddingDate - now;
         const countdownEl = document.getElementById("countdown");
+        
         if (!countdownEl) return;
+
         if (distance < 0) {
             countdownEl.innerHTML = "<div class='text-3xl text-center text-white font-bold col-span-4 p-8 bg-amber-600/80 rounded-2xl backdrop-blur-md shadow-2xl animate-bounce'>¡ESTAMOS DE VIAJE! ✈️</div>";
             return;
         }
+
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
+
         const dEl = document.getElementById("days");
         const hEl = document.getElementById("hours");
         const mEl = document.getElementById("minutes");
         const sEl = document.getElementById("seconds");
-        
-        if(dEl) dEl.innerText = days.toString().padStart(2, '0');
-        if(hEl) hEl.innerText = hours.toString().padStart(2, '0');
-        if(mEl) mEl.innerText = minutes.toString().padStart(2, '0');
-        if(sEl) sEl.innerText = seconds.toString().padStart(2, '0');
+
+        if (dEl) dEl.innerText = days.toString().padStart(2, '0');
+        if (hEl) hEl.innerText = hours.toString().padStart(2, '0');
+        if (mEl) mEl.innerText = minutes.toString().padStart(2, '0');
+        if (sEl) sEl.innerText = seconds.toString().padStart(2, '0');
     }
+
     setInterval(updateCountdown, 1000);
     updateCountdown();
 </script>
