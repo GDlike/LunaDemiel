@@ -6,13 +6,21 @@ import Layout from '../layouts/Layout.astro';
     
     <header slot="hero" class="relative w-full min-h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
         <div class="absolute inset-0 z-0 select-none pointer-events-none">
-            <img src="https://iili.io/fUiEt49.png" alt="Portada" class="w-full h-full object-cover scale-105 blur-[1px] opacity-80" />
+            <img 
+                src="https://iili.io/fUiEt49.png" 
+                alt="Portada" 
+                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
+            />
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
             <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
         </div>
-        <div class="relative z-10 px-4 mt-10 w-full max-w-4xl mx-auto flex flex-col items-center">
-        <img src="/logo.png" alt="Logo Borja & Susan" class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 drop-shadow-2xl rounded-2xl" />
-        </div>
+
+        <div class="relative z-10 px-4 w-full max-w-4xl mx-auto flex flex-col items-center">
+            <img 
+                src="/logo.webp" 
+                alt="Logo Borja & Susan" 
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-6 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
+            />
     </header>
 
     <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
