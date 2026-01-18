@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Mapa del Viaje | B&S">
+    
+    <header slot="hero" class="relative w-full min-h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
+        <div class="absolute inset-0 z-0 select-none pointer-events-none">
+            <img 
+                src="https://iili.io/fUiEt49.png" 
+                alt="Portada" 
+                class="w-full h-full object-cover scale-105 blur-[1px] opacity-80"
+            />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
+            <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 px-4 mt-10 w-full max-w-4xl mx-auto flex flex-col items-center">
+            <img 
+                src="/logo.png" 
+                alt="Logo Borja & Susan" 
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 drop-shadow-2xl rounded-2xl"
+            />
+        </div>
+    </header>
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+    </div>
+
+    <div class="pt-10 pb-20 px-4 max-w-7xl mx-auto relative z-20">
+        
+        <div class="text-center mb-10">
+            <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">GEOLOCALIZACIÓN</span>
+            <h1 class="text-4xl md:text-5xl font-[900] text-white">Nuestra Ruta 🗺️</h1>
+        </div>
+        
+        <div id="map" class="w-full rounded-[2rem] border border-white/10 shadow-2xl z-0 bg-zinc-900" style="height: 600px; min-height: 60vh;"></div>
+
+    </div>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <script is:inline>
+        (function() {
+            var center = [-8.409518, 115.188919]; 
+            var map = L.map('map').setView(center, 9);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
+
+            var icon = L.divIcon({
+                className: 'custom-pin',
+                html: `<div style="background-color: #6366f1; width: 15px; height: 15px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 15px #6366f1;"></div>`,
+                iconSize: [15, 15],
+                iconAnchor: [7, 7],
+                popupAnchor: [0, -10]
+            });
+
+            var locations = [
+                { name: "Ubud", coords: [-8.5069, 115.2625], desc: "Selva y Monos 🐒" },
+                { name: "Uluwatu", coords: [-8.8149, 115.1147], desc: "Acantilados 🌊" },
+                { name: "Seminyak", coords: [-8.6880, 115.1610], desc: "Fiesta 🍸" },
+                { name: "Gili Trawangan", coords: [-8.3503, 116.0386], desc: "Tortugas 🐢" },
+                { name: "Lombok", coords: [-8.8955, 116.2952], desc: "Relax 🥥" }
+            ];
+
+            locations.forEach(loc => {
+                L.marker(loc.coords, {icon: icon})
+                .addTo(map)
+                .bindPopup(`<div style="text-align:center; color:#333;"><b>${loc.name}</b><br><span style="font-size:12px">${loc.desc}</span></div>`);
+            });
+        })();
+    </script>
+</Layout>
+
+<style>
+    /* Estilos Firefly */
+    .firefly {
+        position: absolute; width: 3px; height: 3px; background-color: #6366f1; border-radius: 50%;
+        box-shadow: 0 0 10px 2px rgba(99,102,241, 0.4); opacity: 0;
+        animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
+    }
+    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
+    .firefly:nth-child(2) { left: 50%; animation-duration: 10s; animation-delay: 2s; }
+    .firefly:nth-child(3) { left: 80%; animation-duration: 18s; animation-delay: 5s; }
+    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.8; } }
+</style>

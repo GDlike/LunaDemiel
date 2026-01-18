@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BentoItem from '../components/BentoItem.astro';
+
+// Lista de platos vinculada a tus imágenes locales en public/comida/
+const platos = [
+    { 
+        name: "Nasi Goreng", 
+        desc: "El desayuno, comida y cena nacional. Arroz frito al wok con kecap manis (soja dulce), chalotas, ajo y tamarindo. Siempre lleva un huevo frito encima (Telur Mata Sapi).",
+        spicy: "🌶️ Poco",
+        img: "/comida/1.jpg",
+        col: "md:col-span-2"
+    },
+    { 
+        name: "Sate Ayam", 
+        desc: "No son simples brochetas. Es pollo marinado en cúrcuma y asado sobre cáscaras de coco. La clave es la salsa de cacahuete densa que lleva por encima.",
+        spicy: "🌶️ Medio",
+        img: "/comida/2.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Babi Guling", 
+        desc: "El Rey de Bali. Cerdo asado entero relleno de 'bumbu' (pasta de especias). Se sirve un poco de todo: carne jugosa, piel crujiente y chicharrones.",
+        spicy: "🌶️🌶️🌶️ Fuego",
+        img: "/comida/3.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Bebek Betutu", 
+        desc: "Pato ceremonial. Se frota con especias, se envuelve en hojas de plátano y corteza de palma, y se entierra en brasas para cocinarse 12 horas. Se deshace solo.",
+        spicy: "🌶️🌶️ Picante",
+        img: "/comida/4.jpg",
+        col: "md:col-span-2"
+    },
+    { 
+        name: "Mie Goreng", 
+        desc: "Fideos de huevo amarillos salteados con verduras, pollo y gambas. Es la comida callejera por excelencia junto con el Nasi Goreng.",
+        spicy: "🌶️ Poco",
+        img: "/comida/5.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Nasi Campur", 
+        desc: "Significa 'Arroz Mezclado'. Una bola de arroz rodeada de pequeñas porciones de todo: verduras, carne, tempeh, cacahuetes y huevo. ¡La mejor forma de probarlo todo!",
+        spicy: "🌶️ Varía",
+        img: "/comida/6.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Gado Gado", 
+        desc: "La ensalada indonesia. Verduras blanqueadas, tofu, tempeh y huevo duro, todo bañado (literalmente) en salsa de cacahuete tibia.",
+        spicy: "🌶️ Nada",
+        img: "/comida/7.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Klepon", 
+        desc: "El dulce más famoso. Bolitas de arroz glutinoso verde (por el pandan) rellenas de azúcar de palma líquido que explota en la boca. Rebozadas en coco.",
+        spicy: "🥥 Dulce",
+        img: "/comida/8.jpg",
+        col: "md:col-span-1"
+    },
+    { 
+        name: "Pisang Goreng", 
+        desc: "Plátano frito rebozado. Simple pero brutal. En Bali lo sirven con miel o azúcar de palma. Perfecto para el atardecer con un té.",
+        spicy: "🍯 Dulce",
+        img: "/comida/9.jpg",
+        col: "md:col-span-2"
+    },
+];
+---
+
+<Layout title="Gastronomía de Indonesia | B&S">
+    
+    <header slot="hero" class="relative w-full min-h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
+        <div class="absolute inset-0 z-0 select-none pointer-events-none">
+            <img 
+                src="https://iili.io/fUiEt49.png" 
+                alt="Portada" 
+                class="w-full h-full object-cover scale-105 blur-[1px] opacity-80"
+            />
+            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
+            <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 px-4 mt-10 w-full max-w-4xl mx-auto flex flex-col items-center">
+            <img 
+                src="/logo.png" 
+                alt="Logo Borja & Susan" 
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 drop-shadow-2xl rounded-2xl"
+            />
+        </div>
+    </header>
+
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+    </div>
+
+    <div class="pt-10 pb-20 px-4 max-w-7xl mx-auto relative z-20">
+        <div class="text-center mb-20">
+            <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">GUÍA FOODIE</span>
+            <h1 class="text-5xl md:text-7xl font-[900] text-white mb-6">Sabores de la Isla 🌶️</h1>
+            <p class="text-zinc-400 text-xl max-w-3xl mx-auto">
+                La comida en Indonesia es intensa, especiada y colorida. Hemos seleccionado los **9 platos** que no podemos irnos sin probar. (Ojo al Sambal, la salsa roja: pica a traición).
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
+            {platos.map(plato => (
+                <div class={`relative group rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl ${plato.col}`}>
+                    <img src={plato.img} alt={plato.name} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                    
+                    <div class="absolute bottom-0 left-0 p-8 w-full z-10">
+                        <div class="flex flex-col items-start gap-2 mb-3">
+                            <span class="bg-amber-600/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-white border border-white/20 shadow-lg">
+                                {plato.spicy}
+                            </span>
+                            <h3 class="text-4xl font-[900] text-white leading-none">{plato.name}</h3>
+                        </div>
+                        <p class="text-zinc-300 text-sm md:text-base leading-relaxed opacity-90 font-medium max-w-prose">
+                            {plato.desc}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        <div class="mt-24 p-10 bg-gradient-to-br from-zinc-900 to-black border border-white/10 rounded-[3rem] text-center shadow-2xl relative overflow-hidden">
+             <div class="absolute top-0 right-0 w-64 h-64 bg-amber-600/20 blur-[100px] rounded-full"></div>
+             <div class="relative z-10">
+                <h3 class="text-3xl font-bold text-white mb-4">💡 El Secreto: Los "Warungs"</h3>
+                <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+                    Huid de los restaurantes occidentales caros. La comida auténtica está en los <strong>Warungs</strong> (pequeños negocios familiares). 
+                    Se come por 2-3€ y el sabor es incomparable. Buscad los que estén llenos de locales.
+                </p>
+             </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    /* Estilos Firefly */
+    .firefly {
+        position: absolute; width: 3px; height: 3px; background-color: #6366f1; border-radius: 50%;
+        box-shadow: 0 0 10px 2px rgba(99,102,241, 0.4); opacity: 0;
+        animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
+    }
+    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
+    .firefly:nth-child(2) { left: 50%; animation-duration: 10s; animation-delay: 2s; }
+    .firefly:nth-child(3) { left: 80%; animation-duration: 18s; animation-delay: 5s; }
+    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.8; } }
+</style>
