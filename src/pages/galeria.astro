@@ -9,25 +9,24 @@ import Layout from '../layouts/Layout.astro';
             <img 
                 src="https://iili.io/fUiEt49.png" 
                 alt="Portada" 
-                class="w-full h-full object-cover scale-105 blur-[1px] opacity-80"
+                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
             />
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
             <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
         </div>
 
         <div class="relative z-10 px-4 mt-10 w-full max-w-4xl mx-auto flex flex-col items-center">
-            
             <img 
                 src="/logo.png" 
                 alt="Logo Borja & Susan" 
-                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 drop-shadow-2xl rounded-2xl"
+                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
             />
         </div>
     </header>
 
     <div class="relative z-20 pt-10 pb-20 max-w-6xl mx-auto px-4">
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             
             <div class="space-y-8 text-center lg:text-left">
                 <div>
@@ -36,49 +35,62 @@ import Layout from '../layouts/Layout.astro';
                         Tú haces <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400">las fotos.</span>
                     </h1>
-                    <p class="text-zinc-400 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed">
-                        Olvídate de WhatsApp. Queremos ver la boda y el viaje a través de tus ojos. Sube todas tus fotos y vídeos a nuestro álbum privado.
+                    <p class="text-zinc-400 text-lg leading-relaxed">
+                        Queremos que forméis parte de nuestro recuerdo. Para poder <strong>subir vuestras fotos y vídeos</strong>, necesitáis descargar una aplicación gratuita llamada <strong>WedShoots</strong>.
                     </p>
                 </div>
 
-                <div class="hidden lg:block space-y-4">
-                    <p class="text-white font-bold">¿Cómo funciona?</p>
-                    <ul class="text-zinc-400 space-y-2">
-                        <li>1. Descarga la App <strong>WedShoots</strong>.</li>
-                        <li>2. Pulsa el botón de la derecha o mete el código.</li>
-                        <li>3. ¡Sube todas las fotos que quieras!</li>
-                    </ul>
+                <div class="space-y-6 bg-white/5 p-8 rounded-[2rem] border border-white/10">
+                    <p class="text-white font-bold text-xl mb-4">¿Qué tengo que hacer?</p>
+                    <div class="flex items-start gap-4 text-left">
+                        <div class="bg-amber-500 text-black font-black w-8 h-8 rounded-full flex items-center justify-center shrink-0">1</div>
+                        <p class="text-zinc-300"><strong>Descarga la App</strong> usando los botones de la derecha (según si tienes iPhone o Android).</p>
+                    </div>
+                    <div class="flex items-start gap-4 text-left">
+                        <div class="bg-amber-500 text-black font-black w-8 h-8 rounded-full flex items-center justify-center shrink-0">2</div>
+                        <p class="text-zinc-300">Abre la App y elige <strong>"Soy un invitado"</strong>.</p>
+                    </div>
+                    <div class="flex items-start gap-4 text-left">
+                        <div class="bg-amber-500 text-black font-black w-8 h-8 rounded-full flex items-center justify-center shrink-0">3</div>
+                        <p class="text-zinc-300">Introduce nuestro código: <strong class="text-white">ES57248765</strong></p>
+                    </div>
                 </div>
             </div>
 
             <div class="relative group max-w-md mx-auto w-full">
-                <div class="absolute inset-0 bg-gradient-to-tr from-amber-600 to-yellow-600 rounded-[3rem] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700"></div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-amber-600 to-yellow-600 rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
                 
-                <div class="relative bg-[#111] border border-white/10 rounded-[2.5rem] p-8 md:p-12 text-center shadow-2xl overflow-hidden flex flex-col items-center">
+                <div class="relative bg-zinc-900 border border-white/10 rounded-[2.5rem] p-8 md:p-10 text-center shadow-2xl">
                     
-                    <div class="flex justify-center items-center gap-2 mb-8 opacity-80">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-400"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-                        <span class="font-bold tracking-widest text-sm">WEDSHOOTS</span>
+                    <h3 class="text-white font-bold text-2xl mb-8">Descarga aquí la App</h3>
+
+                    <div class="flex flex-col gap-4 mb-10">
+                        <a href="https://play.google.com/store/apps/details?id=net.bodas.android.wedshoots" target="_blank" class="flex items-center justify-center gap-3 bg-zinc-800 hover:bg-zinc-700 text-white py-4 px-6 rounded-2xl border border-white/10 transition-all hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186c-.183-.294-.304-.633-.304-1.003V2.819c0-.369.121-.709.303-1.005zM15.208 10.6l3.464-1.998c.82-.473 1.103-1.519.63-2.339-.473-.82-1.519-1.103-2.339-.63l-4.14 2.389L15.208 10.6zm-1.416 1.4L3.61 22.186c.646.471 1.543.43 2.222.04l12.84-7.408-4.88-2.818zm1.416-2.8l4.88 2.818 2.339-1.35c.82-.473 1.103-1.519.63-2.339-.473-.82-1.519-1.103-2.339-.63L15.208 9.2z"/></svg>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase font-bold opacity-60 leading-none">Descargar para</p>
+                                <p class="text-lg font-bold">Android</p>
+                            </div>
+                        </a>
+
+                        <a href="https://apps.apple.com/es/app/wedshoots/id660256196" target="_blank" class="flex items-center justify-center gap-3 bg-zinc-800 hover:bg-zinc-700 text-white py-4 px-6 rounded-2xl border border-white/10 transition-all hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.1 2.48-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91 1.65.07 2.93.67 3.73 1.84-3.27 1.92-2.73 5.74.05 6.94-.63 1.58-1.58 3.12-2.99 4.82zM13 3.5c.73-.89 1.22-2.14 1.08-3.38-1.06.04-2.34.71-3.1 1.6-.68.79-1.28 2.06-1.12 3.28 1.19.09 2.41-.61 3.14-1.5z"/></svg>
+                            <div class="text-left">
+                                <p class="text-[10px] uppercase font-bold opacity-60 leading-none">Descargar para</p>
+                                <p class="text-lg font-bold">iPhone (Apple)</p>
+                            </div>
+                        </a>
                     </div>
 
-                    <div class="w-full bg-zinc-900 rounded-2xl p-6 mb-8 border border-white/5 cursor-pointer hover:bg-zinc-800 transition-colors group/code" onclick="navigator.clipboard.writeText('ES57248765'); alert('¡Código copiado al portapapeles!')">
-                        <p class="text-zinc-500 text-[10px] uppercase tracking-widest mb-2 group-hover/code:text-amber-400 transition-colors">TOCA PARA COPIAR CÓDIGO</p>
-                        <p class="text-4xl font-[900] text-white tracking-widest">
-                            ES57248765
-                        </p>
-                        <div class="mt-2 text-amber-400 text-xs font-bold opacity-0 group-hover/code:opacity-100 transition-opacity">
-                            📋 Copiar
-                        </div>
+                    <div class="w-full bg-black/40 rounded-2xl p-6 mb-6 border border-amber-500/30 cursor-pointer hover:bg-amber-500/10 transition-all group/code" onclick="navigator.clipboard.writeText('ES57248765'); alert('¡Código copiado!')">
+                        <p class="text-amber-500 text-[10px] uppercase tracking-widest mb-2 font-bold">NUESTRO CÓDIGO DE ÁLBUM</p>
+                        <p class="text-3xl font-black text-white tracking-[0.2em]">ES57248765</p>
+                        <p class="mt-3 text-zinc-500 text-xs italic">Toca para copiar el código</p>
                     </div>
 
-                    <a href="https://www.bodas.net/web/susan-and-borja/wedshoots-14" target="_blank" class="w-full bg-white text-black font-[900] text-lg py-4 rounded-xl shadow-lg hover:scale-105 hover:bg-amber-400 hover:text-white transition-all flex items-center justify-center gap-2">
-                        <span>📸</span>
-                        ACCEDER AL ÁLBUM
+                    <a href="https://www.bodas.net/web/susan-and-borja/wedshoots-14" target="_blank" class="w-full bg-amber-500 text-black font-black text-base py-4 rounded-xl hover:bg-amber-400 transition-all flex items-center justify-center gap-2">
+                        VER EL ÁLBUM (Subir fotos, solo por app)
                     </a>
-
-                    <p class="text-zinc-500 text-xs mt-6">
-                        Si no tienes la App, el botón te llevará a descargarla.
-                    </p>
                 </div>
             </div>
 
