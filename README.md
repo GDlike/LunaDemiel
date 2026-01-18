@@ -1,9 +1,3 @@
-¡Esto es la guinda del pastel! Un buen README en GitHub es como la carta de presentación de un hotel de lujo. He preparado uno que mezcla el estilo aventurero de vuestro viaje con detalles técnicos potentes.
-
-Crea un archivo llamado README.md en la raíz de tu proyecto y pega esto:
-
-Markdown
-
 # ✈️ Proyecto: Luna de Miel Indonesia 2026 🌴
 
 ![Estado del Proyecto](https://img.shields.io/badge/Estado-En_Despliegue-amber?style=for-the-badge)
