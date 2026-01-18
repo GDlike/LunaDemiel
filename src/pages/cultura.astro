@@ -1,34 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroShell from '../components/HeroShell.astro';
+import Fireflies from '../components/Fireflies.astro';
 ---
 
 <Layout title="Cultura y Respeto | B&S">
 
-    <header slot="hero" class="relative w-full min-h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <div class="absolute inset-0 z-0 select-none pointer-events-none">
-            <img 
-                src="https://iili.io/fUiEt49.png" 
-                alt="Portada" 
-                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
-            />
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
-            <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
-        </div>
-
-        <div class="relative z-10 px-4 w-full max-w-4xl mx-auto flex flex-col items-center">
-            <img 
-                src="/logo.webp" 
-                alt="Logo Borja & Susan" 
-                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-6 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
-            />
-        </div>
-    </header>
-
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-    </div>
+    <HeroShell slot="hero" />
+    <Fireflies />
 
     <div class="pt-10 pb-20 px-4 max-w-5xl mx-auto relative z-20 space-y-32">
         
@@ -180,16 +159,3 @@ import Layout from '../layouts/Layout.astro';
 
     </div>
 </Layout>
-
-<style>
-    .firefly {
-        position: absolute; width: 3px; height: 3px; background-color: #f59e0b; border-radius: 50%;
-        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6); opacity: 0;
-        animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
-    }
-    .firefly:nth-child(1) { left: 10%; animation-duration: 15s; }
-    .firefly:nth-child(2) { left: 50%; animation-duration: 10s; animation-delay: 2s; }
-    .firefly:nth-child(3) { left: 80%; animation-duration: 18s; animation-delay: 5s; }
-    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
-    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.8; } }
-</style>

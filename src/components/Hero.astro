@@ -1,0 +1,13 @@
+---
+const { title, subtitle, image } = Astro.props;
+---
+<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+  <img src={image} alt={title} fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover opacity-80" />
+  <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
+  <div class="relative z-10 text-center px-6">
+    <h1 class="text-4xl md:text-6xl font-bold text-amber-300">{title}</h1>
+    {subtitle && <p class="mt-4 text-lg text-amber-100">{subtitle}</p>}
+  </div>
+  <slot />
+</section>

@@ -1,35 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroShell from '../components/HeroShell.astro';
+import Fireflies from '../components/Fireflies.astro';
 ---
 
 <Layout title="Mapa del Viaje | B&S">
-    
-    <header slot="hero" class="relative w-full min-h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <div class="absolute inset-0 z-0 select-none pointer-events-none">
-            <img 
-                src="https://iili.io/fUiEt49.png" 
-                alt="Portada" 
-                class="w-full h-full object-cover object-[15%_center] md:object-center scale-105 blur-[1px] opacity-80"
-            />
-            <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
-            <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
-        </div>
 
-        <div class="relative z-10 px-4 mt-10 w-full max-w-4xl mx-auto flex flex-col items-center">
-            <img 
-                src="/logo.webp" 
-                alt="Logo Borja & Susan" 
-                class="w-full max-w-[200px] md:max-w-[300px] mx-auto mb-8 mt-12 md:mt-10 drop-shadow-2xl rounded-2xl"
-            />
-            <span class="text-amber-500 font-[900] tracking-[0.4em] uppercase text-sm md:text-base italic block drop-shadow-lg animate-fade-in">
-                Hoja de Ruta
-            </span>
-        </div>
-    </header>
-
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
-        <span class="firefly"></span><span class="firefly"></span><span class="firefly"></span>
+    <div slot="hero">
+        <HeroShell>
+            <div class="pt-[220px] md:pt-[240px] text-center">
+                <span class="text-amber-500 font-[900] tracking-[0.4em] uppercase text-sm md:text-base italic block drop-shadow-lg animate-fade-in">
+                    Hoja de Ruta
+                </span>
+            </div>
+        </HeroShell>
+        <Fireflies />
     </div>
 
     <div class="relative z-20 pb-20 px-4 max-w-7xl mx-auto mt-20 md:mt-32">
@@ -124,13 +109,6 @@ import Layout from '../layouts/Layout.astro';
 
 <style is:global>
     .leaflet-container { background: #0a0a0a !important; cursor: grab; }
-    .firefly {
-        position: absolute; width: 3px; height: 3px; background-color: #f59e0b; border-radius: 50%;
-        box-shadow: 0 0 10px 3px rgba(245, 158, 11, 0.6); opacity: 0;
-        animation: floatUp 10s linear infinite, twinkle 4s ease-in-out infinite;
-    }
-    @keyframes floatUp { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
-    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 0.9; } }
     @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in { animation: fade-in 1.5s ease-out forwards; }
 </style>
