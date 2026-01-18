@@ -1,43 +1,49 @@
-# Astro Starter Kit: Minimal
+¡Esto es la guinda del pastel! Un buen README en GitHub es como la carta de presentación de un hotel de lujo. He preparado uno que mezcla el estilo aventurero de vuestro viaje con detalles técnicos potentes.
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Crea un archivo llamado README.md en la raíz de tu proyecto y pega esto:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Markdown
 
-## 🚀 Project Structure
+# ✈️ Proyecto: Luna de Miel Indonesia 2026 🌴
 
-Inside of your Astro project, you'll see the following folders and files:
+![Estado del Proyecto](https://img.shields.io/badge/Estado-En_Despliegue-amber?style=for-the-badge)
+![Tech](https://img.shields.io/badge/Astro-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
+![Design](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
+> **"Un viaje se vive tres veces: al soñarlo, al vivirlo y al recordarlo."**
+> Esta es la web oficial de la aventura de **Borja & Susan** por las islas de Indonesia. Un espacio interactivo para que nuestros invitados nos acompañen en la distancia. 🇮🇩
+
+---
+
+## ✨ Características Especiales
+
+* **⏳ Cuenta Atrás en Tiempo Real:** Los segundos vuelan hasta el 22 de julio de 2026.
+* **✨ Interfaz "Premium Gold":** Diseño minimalista en modo oscuro con acentos en dorado ámbar.
+* **🦋 Efecto Luciérnagas:** Partículas animadas en CSS que dan vida al fondo de la web.
+* **📱 Mobile First:** Optimizada específicamente para que los invitados la vean perfecta desde sus iPhone/Android.
+* **🗺️ Itinerario Interactivo:** Mapa y detalles de cada parada (Ubud, Uluwatu, Seminyak, Gili T, Lombok).
+* **📸 Integración WedShoots:** Sistema para que los invitados suban sus fotos directamente al álbum privado.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+| Herramienta | Uso |
+| :--- | :--- |
+| **Astro** | El motor de la web (Islands Architecture para máxima velocidad). |
+| **Tailwind CSS** | Estilos modernos, responsivos y personalizados. |
+| **Vercel** | Hosting y despliegue continuo (CD/CI). |
+| **TypeScript/JS** | Lógica del contador y manejo de estados. |
+
+---
+
+## 📁 Estructura del Proyecto
 
 ```text
 /
-├── public/
+├── public/              # Imágenes locales, fotos de comida y el logo.
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+│   ├── components/      # Componentes reutilizables (BentoItems, InfoPanels).
+│   ├── layouts/         # Layout maestro con el Menú Dorado y Luciérnagas.
+│   └── pages/           # Las secciones: Ruta, Sabores, Galería, etc.
+└── tailwind.config.mjs  # Configuración de los tonos ámbar y fuentes.
