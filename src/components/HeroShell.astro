@@ -5,48 +5,45 @@ const {
   logoSrc = "/logo.png",
   logoAlt = "Logo Borja & Susan",
   variant = "default", // "default" | "index"
-
-  // Móvil: SIN zoom. Desktop: tu toque pro.
-  coverScale = "md:scale-105",
-
-  // Móvil: anclado arriba para que “se vea entera” (lo más posible) y no caiga por debajo del logo.
-  // Desktop: centrado como ya lo tienes perfecto.
-  coverPos = "object-cover object-[12%_65%] md:object-center"
-
-  coverExtra = "blur-[1px] opacity-80",
 } = Astro.props;
-
-const imgClass = `w-full h-full ${coverPos} ${coverScale} ${coverExtra}`;
 ---
 
-<header class={`relative w-full overflow-hidden ${variant === "index" ? "h-[92vh] md:h-[90vh]" : "h-[90vh] md:h-[90vh]"}`}>
-  <!-- Fondo FULL BLEED -->
-  <div class="absolute inset-0 z-0 select-none pointer-events-none">
-    <div class="absolute inset-0 left-1/2 w-screen -translate-x-1/2 bg-[#0a0a0a]">
-      <img src={image} alt={alt} class={imgClass} />
-      <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
-      <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
+<header class="relative w-full h-[90vh] overflow-hidden">
+  <!-- FONDO FULL BLEED -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 left-1/2 w-screen -translate-x-1/2 bg-black">
+      <img
+        src={image}
+        alt={alt}
+        class="w-full h-full object-cover md:scale-105 blur-[1px] opacity-80"
+        style="object-position: 12% 65%;"
+      />
 
+      <!-- overlays -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-[#0a0a0a]"></div>
+      <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+
+      <!-- efectos -->
       <div class="absolute inset-0">
         <slot name="fx" />
       </div>
     </div>
   </div>
 
-  <!-- Contenido -->
-  <div class="relative z-10 w-full h-full">
-    <!-- Logo (offset para no meterse bajo el menú fijo) -->
-    <div class="w-full max-w-4xl mx-auto px-4 pt-32 md:pt-24 flex justify-center">
+  <!-- CONTENIDO -->
+  <div class="relative z-10 flex flex-col items-center h-full text-center">
+    <!-- LOGO -->
+    <div class="pt-32 md:pt-28 px-4">
       <img
         src={logoSrc}
         alt={logoAlt}
-        class="w-full max-w-[200px] md:max-w-[300px] drop-shadow-2xl rounded-2xl"
+        class="w-full max-w-[200px] md:max-w-[300px] drop-shadow-2xl rounded-2xl mx-auto"
       />
     </div>
 
-    <!-- Contenido del hero -->
-    <div class={`w-full px-4 ${variant === "index" ? "pt-6 md:pt-12" : "pt-10 md:pt-16"}`}>
-      <div class="max-w-4xl mx-auto flex flex-col items-center text-center">
+    <!-- CONTENIDO HERO -->
+    <div class={`px-4 w-full ${variant === "index" ? "pt-10 md:pt-12" : "pt-12 md:pt-16"}`}>
+      <div class="max-w-4xl mx-auto flex flex-col items-center">
         <slot />
       </div>
     </div>
