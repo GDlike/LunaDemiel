@@ -1,7 +1,87 @@
 ---
-const count = 15;
+const count = 60; // 35-60 ok; 45 suele quedar fino
+
+const particles = Array.from({ length: count }, () => ({
+  left: Math.random() * 100,
+  size: 1 + Math.random() * 1.1,        // más peque
+  alpha: 0.16 + Math.random() * 0.12,     // menos cantosa
+  dur: 18 + Math.random() * 18,           // cae más lento
+  delay: -(Math.random() * 24),           // para que ya haya partículas al cargar
+  drift: -10 + Math.random() * 20,        // deriva suave
+  hue: 42 + Math.random() * 18            // tono cálido ligeramente variable
+}));
 ---
 
-<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden" aria-hidden="true">
-  {Array.from({ length: count }).map(() => <span class="firefly"></span>)}
+<div class="fireflies-layer" aria-hidden="true">
+  {particles.map((p) => (
+    <span
+      class="ember"
+      style={
+        `--left:${p.left}%;` +
+        `--size:${p.size}px;` +
+        `--alpha:${p.alpha};` +
+        `--dur:${p.dur}s;` +
+        `--delay:${p.delay}s;` +
+        `--drift:${p.drift}px;` +
+        `--h:${p.hue};`
+      }
+    />
+  ))}
 </div>
+
+<style>
+  /* capa detrás del contenido (tu main es z-10, nav z-50) */
+  .fireflies-layer{
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+
+    /* baja un pelín la intensidad global por si acaso */
+    opacity: 0.9;
+  }
+
+  .ember{
+    position: absolute;
+    left: var(--left);
+    top: -12vh;
+
+    width: calc(var(--size) * 2);
+    height: calc(var(--size) * 2);
+    opacity: var(--alpha);
+    border-radius: 9999px;
+
+    /* chispa/ceniza cálida, sutil */
+    background: radial-gradient(
+      circle,
+      hsla(var(--h), 95%, 70%, 0.95) 0%,
+      hsla(var(--h), 95%, 70%, 0.35) 55%,
+      hsla(var(--h), 95%, 70%, 0) 78%
+    );
+
+    /* en dark queda precioso sin “neón barato” */
+    mix-blend-mode: screen;
+    filter: blur(0.25px);
+
+    animation:
+      fall var(--dur) linear var(--delay) infinite,
+      sway calc(var(--dur) * 0.55) ease-in-out calc(var(--delay) * 0.7) infinite;
+    will-change: transform;
+  }
+
+  @keyframes fall{
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(0, 125vh, 0); }
+  }
+
+  @keyframes sway{
+    0%, 100% { margin-left: 0; }
+    50% { margin-left: var(--drift); }
+  }
+
+  /* accesibilidad */
+  @media (prefers-reduced-motion: reduce){
+    .ember{ animation: none; opacity: 0.06; }
+  }
+</style>

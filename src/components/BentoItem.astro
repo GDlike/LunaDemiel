@@ -9,7 +9,11 @@ interface Props {
 const { title, subtitle, price, href, class: className } = Astro.props;
 ---
 
-<a href={href} target={href ? "_blank" : "_self"} class={`
+<a
+    href={href}
+    target={href ? "_blank" : "_self"}
+    rel={href ? "noopener noreferrer" : undefined}
+    class={`
     block h-full w-full
     relative group overflow-hidden rounded-3xl 
     bg-zinc-900 border border-white/10 
