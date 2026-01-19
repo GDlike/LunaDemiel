@@ -23,7 +23,7 @@ const {
       <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-[#0a0a0a]"></div>
       <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
 
-      <!-- efectos -->
+      <!-- FX -->
       <div class="absolute inset-0">
         <slot name="fx" />
       </div>
@@ -33,11 +33,11 @@ const {
   <!-- CONTENIDO -->
   <div class="relative z-10 flex flex-col items-center h-full text-center">
     <!-- LOGO -->
-    <div class="pt-28 md:pt-28 px-4">
+    <div class="w-full max-w-4xl mx-auto px-4 pt-28 landscape:pt-16 md:pt-24 flex justify-center">
       <img
         src={logoSrc}
         alt={logoAlt}
-        class="w-full max-w-[200px] md:max-w-[300px] drop-shadow-2xl rounded-2xl mx-auto"
+        class="w-full max-w-[200px] md:max-w-[300px] drop-shadow-2xl rounded-2xl"
       />
     </div>
 
