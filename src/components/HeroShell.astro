@@ -10,15 +10,10 @@ const {
 ---
 
 <header
-  class="
-    relative w-full
-    min-h-[90vh]
-    lg:min-h-0
-    lg:h-[90vh]
-    overflow-hidden
-    landscape:min-h-[520px]
-    landscape:overflow-hidden
-  "
+  class:list={[
+    "relative w-full overflow-hidden landscape:min-h-[520px] landscape:overflow-hidden lg:min-h-0 lg:h-[90vh]",
+    variant === "index" ? "min-h-[90vh]" : "min-h-[72vh] sm:min-h-[78vh]"
+  ]}
 >
   <!-- FONDO -->
   <div class="absolute inset-0 z-0 pointer-events-none bg-black">
