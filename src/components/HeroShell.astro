@@ -8,45 +8,58 @@ const {
 } = Astro.props;
 ---
 
-<header class="relative w-full h-[90vh] overflow-hidden landscape:h-auto landscape:min-h-[90vh] landscape:overflow-visible">
-  <!-- FONDO FULL BLEED -->
-  <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="absolute inset-0 left-1/2 w-screen -translate-x-1/2 bg-black">
-      <img
-        src={image}
-        alt={alt}
-        class="w-full h-full object-cover md:scale-105 blur-[1px] opacity-80"
-        style="object-position: 12% 65%;"
-      />
+<header
+  class="
+    relative w-full
+    min-h-[90vh]
+    overflow-hidden
+    landscape:min-h-[520px]
+    landscape:overflow-hidden
+  "
+>
+  <!-- FONDO -->
+  <div class="absolute inset-0 z-0 pointer-events-none bg-black">
+    <img
+      src={image}
+      alt={alt}
+      class="w-full h-full object-cover blur-[1px] opacity-80"
+      style="object-position: 12% 60%;"
+    />
 
-      <!-- overlays -->
-      <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-[#0a0a0a]"></div>
-      <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+    <!-- overlays -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-[#0a0a0a]"></div>
+    <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
 
-      <!-- FX -->
-      <div class="absolute inset-0">
-        <slot name="fx" />
-      </div>
+    <!-- FX -->
+    <div class="absolute inset-0">
+      <slot name="fx" />
     </div>
   </div>
 
   <!-- CONTENIDO -->
-  <div class="relative z-10 flex flex-col items-center h-full text-center">
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
     <!-- LOGO -->
-    <div class="w-full max-w-4xl mx-auto px-4 pt-28 landscape:pt-10 md:pt-24 flex justify-center">
-      <img
-        src={logoSrc}
-        alt={logoAlt}
-        class="w-full max-w-[200px] landscape:max-w-[160px] md:max-w-[300px] drop-shadow-2xl rounded-2xl"
-      />
-    </div>
+    <img
+      src={logoSrc}
+      alt={logoAlt}
+      class="
+        w-full
+        max-w-[200px]
+        md:max-w-[300px]
+        landscape:max-w-[150px]
+        drop-shadow-2xl
+        rounded-2xl
+        mb-6
+        landscape:mt-16
+      "
+    />
 
     <!-- CONTENIDO HERO -->
     <div
-      class={`px-4 w-full ${
+      class={`w-full ${
         variant === "index"
-          ? "pt-10 md:pt-12 landscape:pt-4"
-          : "pt-12 md:pt-16 landscape:pt-6"
+          ? "mt-6 landscape:mt-2"
+          : "mt-10 landscape:mt-4"
       }`}
     >
       <div class="max-w-4xl mx-auto flex flex-col items-center">
@@ -55,4 +68,3 @@ const {
     </div>
   </div>
 </header>
-
