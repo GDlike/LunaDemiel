@@ -9,13 +9,13 @@ import HeroShell from '../components/HeroShell.astro';
 
     <div class="relative z-20 pb-20 px-4 max-w-7xl mx-auto mt-20 md:mt-32">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            
+
             <div class="lg:col-span-1">
                 <div class="bg-zinc-900/90 backdrop-blur-2xl border border-white/10 p-8 rounded-[2.5rem] lg:sticky lg:top-32 shadow-2xl">
                     <h3 class="text-amber-500 font-[900] text-2xl mb-8 flex items-center gap-3 italic">
                         📍 Paradas
                     </h3>
-                    
+
                     <div class="space-y-6 text-left">
                         { [
                             { name: "Ubud", desc: "Selva profunda y arrozales." },
@@ -37,7 +37,7 @@ import HeroShell from '../components/HeroShell.astro';
             <div class="lg:col-span-2">
                 <div class="relative w-full h-[500px] md:h-[750px] bg-zinc-950 rounded-[3rem] p-1 shadow-2xl overflow-hidden border border-white/10">
                     <div id="map" class="w-full h-full rounded-[2.8rem] z-0 bg-zinc-950"></div>
-                    
+
                     <div class="absolute bottom-6 right-6 z-[1000] pointer-events-none hidden md:block">
                         <span class="bg-black/80 backdrop-blur-md text-amber-500 text-[9px] px-4 py-1.5 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">
                             🖱️ Scroll para Zoom
@@ -49,16 +49,50 @@ import HeroShell from '../components/HeroShell.astro';
     </div>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
+    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script is:inline>
+        let mapInitTries = 0;
+
+        function cleanupMap() {
+            if (window.leafletMap) {
+                try { window.leafletMap.remove(); } catch (e) {}
+                window.leafletMap = null;
+            }
+            const el = document.getElementById('map');
+            if (el) {
+                el.dataset.mapInited = "0";
+                // Por si Leaflet dejó basura
+                el.innerHTML = "";
+            }
+            mapInitTries = 0;
+        }
+
         function loadMap() {
             const el = document.getElementById('map');
-            if (!el || typeof L === 'undefined') return;
+            if (!el) return;
 
-            if (window.leafletMap) { window.leafletMap.remove(); }
+            // Evita doble init si el DOM no se ha destruido como esperas
+            if (el.dataset.mapInited === "1") return;
 
-            const map = L.map('map', {
+            // Espera a Leaflet si aún no está disponible (navegación + defer)
+            if (typeof window.L === 'undefined') {
+                if (mapInitTries < 50) { // ~2.5s max
+                    mapInitTries++;
+                    setTimeout(loadMap, 50);
+                }
+                return;
+            }
+
+            // Si había uno anterior, fuera
+            if (window.leafletMap) {
+                try { window.leafletMap.remove(); } catch (e) {}
+                window.leafletMap = null;
+            }
+
+            el.dataset.mapInited = "1";
+
+            const map = window.L.map('map', {
                 scrollWheelZoom: true,
                 zoomControl: false,
                 attributionControl: false
@@ -66,7 +100,7 @@ import HeroShell from '../components/HeroShell.astro';
 
             window.leafletMap = map;
 
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                 maxZoom: 19
             }).addTo(map);
 
@@ -78,7 +112,7 @@ import HeroShell from '../components/HeroShell.astro';
                 { n: "Lombok", c: [-8.8955, 116.2952] }
             ];
 
-            const icon = L.divIcon({
+            const icon = window.L.divIcon({
                 className: 'custom-icon',
                 html: "<div style='background-color: #f59e0b; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 15px #f59e0b;'></div>",
                 iconSize: [14, 14],
@@ -86,14 +120,20 @@ import HeroShell from '../components/HeroShell.astro';
             });
 
             points.forEach(p => {
-                L.marker(p.c, {icon: icon}).addTo(map).bindPopup(`<b style="font-family:sans-serif; text-transform:uppercase; color:black;">${p.n}</b>`);
+                window.L.marker(p.c, {icon: icon}).addTo(map).bindPopup(`<b style="font-family:sans-serif; text-transform:uppercase; color:black;">${p.n}</b>`);
             });
 
-            setTimeout(() => { map.invalidateSize(); }, 500);
+            // Importante al entrar por navegación: fuerza el recalculo del tamaño
+            setTimeout(() => { map.invalidateSize(); }, 200);
         }
 
-        loadMap();
+        // Carga normal + navegación Astro
+        document.addEventListener('DOMContentLoaded', loadMap);
+        document.addEventListener('astro:page-load', loadMap);
         document.addEventListener('astro:after-swap', loadMap);
+
+        // Limpia antes de irte (evita mapas “fantasma”)
+        document.addEventListener('astro:before-swap', cleanupMap);
     </script>
 </Layout>
 
