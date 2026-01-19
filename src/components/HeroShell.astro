@@ -1,4 +1,5 @@
 ---
+import Fireflies from "./Fireflies.astro";
 const {
   image = "/portada.webp",
   alt = "Portada",
@@ -32,6 +33,7 @@ const {
 
     <!-- FX -->
     <div class="absolute inset-0">
+      <Fireflies />
       <slot name="fx" />
     </div>
   </div>

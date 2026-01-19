@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import Fireflies from "../components/Fireflies.astro";
 
 interface Props {
   title: string;
@@ -57,8 +56,6 @@ const ogImage = image ?? "/og.jpg";
   </head>
 
   <body class="text-slate-200 antialiased selection:bg-amber-500/30 selection:text-amber-200 relative">
-    <!-- FX GLOBAL -->
-    <Fireflies />
 
     <nav class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
       <div

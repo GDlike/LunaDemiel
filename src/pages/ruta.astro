@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import HeroShell from '../components/HeroShell.astro';
-import Fireflies from '../components/Fireflies.astro';
 
 const timeline = [
   { type: 'flight', date: '21 JUL', title: 'Vuelo de Ida ✈️', desc: 'Bilbao → Barcelona → Yakarta (Escala Yeda) → Bali. ¡Empieza la aventura!', icon: 'flight' },
@@ -17,7 +16,6 @@ const timeline = [
 
 <Layout title="Itinerario Completo | Borja & Susan">
   <HeroShell slot="hero">
-    <div slot="fx"><Fireflies /></div>
   </HeroShell>
 
   <div class="pt-10 pb-20 max-w-3xl mx-auto px-4 relative z-20">

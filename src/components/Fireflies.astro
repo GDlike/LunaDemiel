@@ -84,4 +84,10 @@ const particles = Array.from({ length: count }, () => ({
   @media (prefers-reduced-motion: reduce){
     .ember{ animation: none; opacity: 0.06; }
   }
+
+    /* móvil: menos partículas (menos repaints, menos batería fundida) */
+  @media (max-width: 768px){
+    .ember:nth-child(n+31){ display: none; } /* deja 30, oculta el resto */
+    .fireflies-layer{ opacity: 0.75; }
+  }
 </style>
