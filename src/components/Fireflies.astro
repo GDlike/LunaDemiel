@@ -1,18 +1,45 @@
 ---
-const count = 60; // 35-60 ok; 45 suele quedar fino
+/**
+ * Embers / partículas tipo tráiler (sutil, cálido, “cinematográfico”)
+ * - Técnicamente: transforms only, sin margin-left, menos coste GPU
+ */
 
-const particles = Array.from({ length: count }, () => ({
-  left: Math.random() * 100,
-  size: 1 + Math.random() * 1.1,        // más peque
-  alpha: 0.16 + Math.random() * 0.12,     // menos cantosa
-  dur: 18 + Math.random() * 18,           // cae más lento
-  delay: -(Math.random() * 24),           // para que ya haya partículas al cargar
-  drift: -10 + Math.random() * 20,        // deriva suave
-  hue: 42 + Math.random() * 18            // tono cálido ligeramente variable
-}));
+const count = 52; // 40-60: 52 suele ser el sweet spot
+
+const particles = Array.from({ length: count }, () => {
+  const size = 1.0 + Math.random() * 1.8;          // 1.0–2.8px (pequeñas)
+  const dur = 16 + Math.random() * 22;             // 16–38s (lentas)
+  const delay = -(Math.random() * dur);            // ya están “en curso”
+  const left = Math.random() * 100;
+
+  // Punto inicial y final: “casi cae”, pero con aire de flotación
+  const yStart = -15 - Math.random() * 25;         // -15% a -40% viewport
+  const yEnd = 115 + Math.random() * 35;           // 115% a 150% viewport
+
+  // Viento/deriva suave
+  const drift = -26 + Math.random() * 52;          // -26px a +26px
+
+  // Tono cálido tipo brasa
+  const hue = 28 + Math.random() * 18;             // 28–46 (naranja/ámbar)
+  const alpha = 0.08 + Math.random() * 0.12;       // 0.08–0.20 sutil
+
+  // Parpadeo (flicker) leve
+  const flick = 2.2 + Math.random() * 4.0;         // 2.2–6.2s
+  const flickDelay = -(Math.random() * flick);
+
+  // Rotación leve para “cáscara/hojita caliente”
+  const rot = -18 + Math.random() * 36;            // -18º a 18º
+  const rotDur = 8 + Math.random() * 16;
+
+  // Profundidad: algunas más “cerca”
+  const blur = Math.random() < 0.25 ? 0.45 : 0.2;  // blur mínimo y raro
+  const scale = 0.85 + Math.random() * 0.35;       // 0.85–1.2
+
+  return { left, size, dur, delay, drift, hue, alpha, yStart, yEnd, flick, flickDelay, rot, rotDur, blur, scale };
+});
 ---
 
-<div class="fireflies-layer" aria-hidden="true">
+<div class="embers-layer" aria-hidden="true">
   {particles.map((p) => (
     <span
       class="ember"
@@ -23,71 +50,117 @@ const particles = Array.from({ length: count }, () => ({
         `--dur:${p.dur}s;` +
         `--delay:${p.delay}s;` +
         `--drift:${p.drift}px;` +
-        `--h:${p.hue};`
+        `--h:${p.hue};` +
+        `--y0:${p.yStart}vh;` +
+        `--y1:${p.yEnd}vh;` +
+        `--flick:${p.flick}s;` +
+        `--fdelay:${p.flickDelay}s;` +
+        `--rot:${p.rot}deg;` +
+        `--rotdur:${p.rotDur}s;` +
+        `--blur:${p.blur}px;` +
+        `--scale:${p.scale};`
       }
-    />
+    >
+      <i class="ember-core"></i>
+    </span>
   ))}
 </div>
 
 <style>
-  /* capa detrás del contenido (tu main es z-10, nav z-50) */
-  .fireflies-layer{
+  /* capa detrás del contenido (main z-10, nav z-50) */
+  .embers-layer{
     position: fixed;
     inset: 0;
     z-index: 5;
     pointer-events: none;
     overflow: hidden;
 
-    /* baja un pelín la intensidad global por si acaso */
-    opacity: 0.9;
+    /* composición más estable */
+    contain: layout paint size;
+    isolation: isolate;
+
+    /* intensidad global: “toque”, no festival */
+    opacity: 0.95;
   }
 
+  /* Wrapper: controla la “caída” */
   .ember{
     position: absolute;
     left: var(--left);
-    top: -12vh;
+    top: 0;
 
-    width: calc(var(--size) * 2);
-    height: calc(var(--size) * 2);
+    width: calc(var(--size) * 3.2);
+    height: calc(var(--size) * 3.2);
+
+    /* Arranca arriba del viewport con variable y */
+    transform: translate3d(0, var(--y0), 0);
     opacity: var(--alpha);
+
+    will-change: transform, opacity;
+    animation: fall var(--dur) linear var(--delay) infinite;
+  }
+
+  /* Núcleo: deriva, parpadea y rota (TODO por transform/opacity) */
+  .ember-core{
+    display: block;
+    width: 100%;
+    height: 100%;
     border-radius: 9999px;
 
-    /* chispa/ceniza cálida, sutil */
+    /* Brasa cinematográfica: centro caliente + halo suave */
     background: radial-gradient(
       circle,
-      hsla(var(--h), 95%, 70%, 0.95) 0%,
-      hsla(var(--h), 95%, 70%, 0.35) 55%,
-      hsla(var(--h), 95%, 70%, 0) 78%
+      hsla(var(--h), 95%, 70%, 0.90) 0%,
+      hsla(var(--h), 95%, 62%, 0.30) 50%,
+      hsla(var(--h), 95%, 55%, 0.00) 78%
     );
 
-    /* en dark queda precioso sin “neón barato” */
+    /* “screen” queda bien, pero sin pasarse */
     mix-blend-mode: screen;
-    filter: blur(0.25px);
+
+    /* blur mínimo, solo para quitar pixelado */
+    filter: blur(var(--blur));
+
+    transform: translate3d(0, 0, 0) scale(var(--scale)) rotate(var(--rot));
+    will-change: transform, opacity, filter;
 
     animation:
-      fall var(--dur) linear var(--delay) infinite,
-      sway calc(var(--dur) * 0.55) ease-in-out calc(var(--delay) * 0.7) infinite;
-    will-change: transform;
+      drift calc(var(--dur) * 0.55) ease-in-out calc(var(--delay) * 0.7) infinite,
+      flicker var(--flick) ease-in-out var(--fdelay) infinite,
+      rotate var(--rotdur) linear calc(var(--delay) * 0.5) infinite;
   }
 
   @keyframes fall{
-    from { transform: translate3d(0, 0, 0); }
-    to   { transform: translate3d(0, 125vh, 0); }
+    from { transform: translate3d(0, var(--y0), 0); }
+    to   { transform: translate3d(0, var(--y1), 0); }
   }
 
-  @keyframes sway{
-    0%, 100% { margin-left: 0; }
-    50% { margin-left: var(--drift); }
+  @keyframes drift{
+    0%, 100% { transform: translate3d(0, 0, 0) scale(var(--scale)) rotate(var(--rot)); }
+    50%      { transform: translate3d(var(--drift), 0, 0) scale(calc(var(--scale) * 1.03)) rotate(calc(var(--rot) * -1)); }
   }
 
-  /* accesibilidad */
+  @keyframes flicker{
+    0%, 100% { opacity: 0.85; }
+    40%      { opacity: 1; }
+    60%      { opacity: 0.75; }
+  }
+
+  @keyframes rotate{
+    from { filter: blur(var(--blur)); }
+    to   { filter: blur(var(--blur)); } /* mantiene GPU estable; no animamos blur */
+  }
+
+  /* Accesibilidad */
   @media (prefers-reduced-motion: reduce){
-    .ember{ animation: none; opacity: 0.06; }
+    .ember{ animation: none; opacity: 0.05; }
+    .ember-core{ animation: none; opacity: 0.5; }
   }
 
-    /* móvil: menos partículas (menos repaints, menos batería fundida) */
+  /* Móvil: menos partículas y menos intensidad */
   @media (max-width: 768px){
-    .ember:nth-child(n+31){ display: none; } /* deja 30, oculta el resto */
-    .fireflies-layer{ opacity: 0.75; }
+    .ember:nth-child(n+29){ display: none; } /* deja 28 */
+    .embers-layer{ opacity: 0.75; }
+    .ember-core{ mix-blend-mode: screen; filter: blur(0.15px); }
   }
 </style>
