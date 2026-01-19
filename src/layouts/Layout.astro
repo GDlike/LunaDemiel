@@ -1,5 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
+import ScrollToTop from "../components/ScrollToTop.astro";
+import IntersectionObserver from "../components/IntersectionObserver.astro";
 
 interface Props {
   title: string;
@@ -53,9 +55,17 @@ const ogImage = image ?? "/og.jpg";
     <!-- Fonts: self-hosted (premium + menos llamadas externas) -->
     <link rel="preload" href="/fonts/outfit-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/outfit-900.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="/portada.webp" as="image" />
+    <link rel="preload" href="/logo.png" as="image" />
   </head>
 
   <body class="text-slate-200 antialiased selection:bg-amber-500/30 selection:text-amber-200 relative">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-amber-500 focus:text-black focus:font-bold focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white">
+      Saltar al contenido principal
+    </a>
 
     <nav class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
       <div
@@ -94,13 +104,13 @@ const ogImage = image ?? "/og.jpg";
           </span>
         </a>
 
-        <ul class="flex flex-wrap items-center justify-center gap-1 text-[11px] md:text-xs font-[900] text-zinc-400 uppercase tracking-wider">
-          <li><a href="/ruta" class={`nav-link ${currentPath === "ruta" ? "active" : ""}`}>Ruta</a></li>
-          <li><a href="/sabores" class={`nav-link ${currentPath === "sabores" ? "active" : ""}`}>Sabores</a></li>
-          <li><a href="/cultura" class={`nav-link ${currentPath === "cultura" ? "active" : ""}`}>Cultura</a></li>
-          <li><a href="/mapa" class={`nav-link ${currentPath === "mapa" ? "active" : ""}`}>Mapa</a></li>
-          <li><a href="/galeria" class={`nav-link ${currentPath === "galeria" ? "active" : ""}`}>Fotos</a></li>
-          <li><a href="/guia" class={`nav-link ${currentPath === "guia" ? "active" : ""}`}>Guía</a></li>
+        <ul class="flex flex-wrap items-center justify-center gap-1 text-[11px] md:text-xs font-[900] text-zinc-400 uppercase tracking-wider" role="list">
+          <li role="listitem"><a href="/ruta" class={`nav-link ${currentPath === "ruta" ? "active" : ""}`} aria-current={currentPath === "ruta" ? "page" : undefined}>Ruta</a></li>
+          <li role="listitem"><a href="/sabores" class={`nav-link ${currentPath === "sabores" ? "active" : ""}`} aria-current={currentPath === "sabores" ? "page" : undefined}>Sabores</a></li>
+          <li role="listitem"><a href="/cultura" class={`nav-link ${currentPath === "cultura" ? "active" : ""}`} aria-current={currentPath === "cultura" ? "page" : undefined}>Cultura</a></li>
+          <li role="listitem"><a href="/mapa" class={`nav-link ${currentPath === "mapa" ? "active" : ""}`} aria-current={currentPath === "mapa" ? "page" : undefined}>Mapa</a></li>
+          <li role="listitem"><a href="/galeria" class={`nav-link ${currentPath === "galeria" ? "active" : ""}`} aria-current={currentPath === "galeria" ? "page" : undefined}>Fotos</a></li>
+          <li role="listitem"><a href="/guia" class={`nav-link ${currentPath === "guia" ? "active" : ""}`} aria-current={currentPath === "guia" ? "page" : undefined}>Guía</a></li>
         </ul>
       </div>
     </nav>
@@ -212,9 +222,15 @@ const ogImage = image ?? "/og.jpg";
     <slot name="hero" />
 
     <!-- MAIN -->
-    <main class="max-w-7xl mx-auto px-4 pt-0 -mt-16 md:-mt-32 pb-20 relative z-10">
+    <main id="main-content" class="max-w-7xl mx-auto px-4 pt-0 -mt-16 md:-mt-32 pb-20 relative z-10">
       <slot />
     </main>
+
+    <!-- Scroll to Top Button -->
+    <ScrollToTop />
+    
+    <!-- Intersection Observer para animaciones -->
+    <IntersectionObserver />
 
     <script is:inline>
       function setupMusic() {
@@ -297,6 +313,36 @@ const ogImage = image ?? "/og.jpg";
   .nav-link.active { color: white; font-weight: 900; text-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
   .nav-link.active::after { content: ''; position: absolute; inset: -2px; background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, transparent 75%); border-radius: 9999px; z-index: -1; animation: pulse-aura 2.5s infinite; }
   @keyframes pulse-aura { 0%, 100% { transform: scale(1); opacity: 0.4; } 50% { transform: scale(1.1); opacity: 0.7; } }
+  
+  /* Focus states mejorados para accesibilidad */
+  .nav-link:focus-visible {
+    outline: 2px solid rgba(245, 158, 11, 0.8);
+    outline-offset: 2px;
+    color: white;
+  }
+  
+  /* Skip link styles */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  .focus\:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
 
   /* Reduce repaints en scroll: main sections no visibles no se renderizan hasta que entran */
   main { content-visibility: auto; contain-intrinsic-size: 1px 2000px; }

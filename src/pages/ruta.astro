@@ -32,7 +32,7 @@ const timeline = [
       <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500 via-yellow-500 to-transparent md:-ml-0.5 h-full opacity-30"></div>
 
       {timeline.map((item, index) => (
-        <div class={`relative mb-16 md:mb-24 flex flex-col md:flex-row items-center w-full group ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+        <div class={`relative mb-16 md:mb-24 flex flex-col md:flex-row items-center w-full group fade-in-on-scroll ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
           <div class="w-full md:w-5/12 pl-12 md:pl-0 md:px-10">
             <div class={`
               relative p-6 rounded-2xl border border-white/5 backdrop-blur-sm

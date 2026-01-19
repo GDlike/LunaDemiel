@@ -47,7 +47,24 @@ import HeroShell from '../components/HeroShell.astro';
 
       <div class="lg:col-span-2">
         <div class="relative w-full h-[500px] md:h-[750px] bg-zinc-950 rounded-[3rem] p-1 shadow-2xl overflow-hidden border border-white/10">
-          <div id="map" class="w-full h-full rounded-[2.8rem] z-0 bg-zinc-950"></div>
+          <!-- Loading state -->
+          <div id="map-loading" class="absolute inset-0 z-10 flex items-center justify-center bg-zinc-950 rounded-[2.8rem] transition-opacity duration-300">
+            <div class="text-center">
+              <div class="inline-block w-12 h-12 border-4 border-amber-500/30 border-t-amber-500 rounded-full animate-spin mb-4"></div>
+              <p class="text-zinc-400 text-sm font-bold">Cargando mapa...</p>
+            </div>
+          </div>
+          
+          <div id="map" class="w-full h-full rounded-[2.8rem] z-0 bg-zinc-950" aria-label="Mapa interactivo del viaje"></div>
+
+          <!-- Error state (oculto por defecto) -->
+          <div id="map-error" class="absolute inset-0 z-20 hidden items-center justify-center bg-zinc-950 rounded-[2.8rem]">
+            <div class="text-center px-4">
+              <p class="text-red-400 text-xl mb-2">⚠️</p>
+              <p class="text-zinc-300 font-bold mb-2">No se pudo cargar el mapa</p>
+              <button onclick="loadMap()" class="text-amber-500 hover:text-amber-400 text-sm underline">Intentar de nuevo</button>
+            </div>
+          </div>
 
           <div class="absolute bottom-6 right-6 z-[1000] pointer-events-none hidden md:block">
             <span class="bg-black/80 backdrop-blur-md text-amber-500 text-[9px] px-4 py-1.5 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">
@@ -92,14 +109,42 @@ import HeroShell from '../components/HeroShell.astro';
 
     function loadMap() {
       const el = document.getElementById('map');
+      const loadingEl = document.getElementById('map-loading');
+      const errorEl = document.getElementById('map-error');
+      
       if (!el) return;
 
-      if (el.dataset.mapInited === "1") return;
+      // Ocultar error si está visible
+      if (errorEl) {
+        errorEl.classList.add('hidden');
+        errorEl.classList.remove('flex');
+      }
+
+      // Mostrar loading
+      if (loadingEl) {
+        loadingEl.classList.remove('opacity-0');
+        loadingEl.classList.add('opacity-100', 'flex');
+      }
+
+      if (el.dataset.mapInited === "1") {
+        if (loadingEl) {
+          loadingEl.classList.add('opacity-0');
+          setTimeout(() => loadingEl.classList.add('hidden'), 300);
+        }
+        return;
+      }
 
       if (typeof window.L === 'undefined') {
         if (mapInitTries < 50) {
           mapInitTries++;
           setTimeout(loadMap, 50);
+        } else {
+          // Timeout: mostrar error
+          if (loadingEl) loadingEl.classList.add('hidden');
+          if (errorEl) {
+            errorEl.classList.remove('hidden');
+            errorEl.classList.add('flex');
+          }
         }
         return;
       }
@@ -111,102 +156,238 @@ import HeroShell from '../components/HeroShell.astro';
 
       el.dataset.mapInited = "1";
 
-      const map = window.L.map('map', {
-        scrollWheelZoom: true,
-        zoomControl: false,
-        attributionControl: false
-      }).setView([-8.55, 115.8], 9);
-
-      window.leafletMap = map;
-
-      window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19
-      }).addTo(map);
-
-      // Puntos + info (para popups y para el click desde la lista)
-      const points = [
-        { n: "Ubud", c: [-8.5069, 115.2625], d: "Selva, arrozales, cascadas, templos. Aquí se viene a cargar baterías (y a sudar con estilo)." },
-        { n: "Uluwatu", c: [-8.8149, 115.1147], d: "Acantilados, templo al atardecer y olas. Cuidado con los monos: roban más que Hacienda." },
-        { n: "Seminyak", c: [-8.6880, 115.1610], d: "Beach clubs, cenas guapas y sunsets. La zona donde todo parece caro por deporte." },
-        { n: "Gili Trawangan", c: [-8.3503, 116.0386], d: "Agua cristal, snorkel y tortugas. Cero coches, cero estrés, cero excusas." },
-        { n: "Lombok", c: [-8.8955, 116.2952], d: "Más salvaje y tranquilo. Playas brutales y vibes de ‘esto sí es vacaciones’." }
-      ];
-
-      const icon = window.L.divIcon({
-        className: 'custom-icon',
-        html: "<div style='background-color:#f59e0b;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 0 15px #f59e0b;'></div>",
-        iconSize: [14, 14],
-        iconAnchor: [7, 7]
-      });
-
-      const markersByName = {};
-      window.leafletMarkersByName = markersByName;
-
-      points.forEach((p, idx) => {
-        const title = escapeHtml(p.n);
-        const desc = escapeHtml(p.d);
-
-        const popupHtml = `
-          <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; max-width: 240px;">
-            <div style="font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:12px; margin-bottom:6px; color:#111;">
-              ${title}
-            </div>
-            <div style="font-size:12px; line-height:1.35; color:#222; opacity:.9;">
-              ${desc}
-            </div>
-            <div style="margin-top:8px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; opacity:.65;">
-              Stop ${idx + 1} / ${points.length}
-            </div>
-          </div>
-        `;
-
-        const m = window.L.marker(p.c, { icon }).addTo(map).bindPopup(popupHtml, { closeButton: true });
-        markersByName[p.n] = m;
-      });
-
-      // RUTA dibujada (orden de viaje)
-      const routeCoords = points.map(p => p.c);
-
-      const routeLine = window.L.polyline(routeCoords, {
-        // No fijo colores en tailwind aquí, Leaflet necesita color.
-        // Uso el mismo amber de tu UI para coherencia.
-        color: "#f59e0b",
-        weight: 4,
-        opacity: 0.85,
-        lineJoin: "round",
-        dashArray: "8 10"
-      }).addTo(map);
-
-      window.leafletRouteLine = routeLine;
-
-      // Ajusta el mapa para que se vean todos los puntos (queda más “pro” que setView fijo)
       try {
-        const bounds = routeLine.getBounds();
-        map.fitBounds(bounds, { padding: [30, 30] });
-      } catch (e) {
-        // si falla por lo que sea, al menos no explota
-      }
+        const map = window.L.map('map', {
+          scrollWheelZoom: true,
+          zoomControl: false,
+          attributionControl: false
+        }).setView([-8.55, 115.8], 9);
 
-      // Click en la lista: centra y abre popup
-      const stopsEl = document.getElementById("stops");
-      if (stopsEl && !stopsEl.dataset.bound) {
-        stopsEl.dataset.bound = "1";
-        stopsEl.addEventListener("click", (ev) => {
-          const btn = ev.target && ev.target.closest && ev.target.closest("[data-stop]");
-          if (!btn) return;
-          const name = btn.getAttribute("data-stop");
-          if (!name || !window.leafletMarkersByName || !window.leafletMarkersByName[name]) return;
+        window.leafletMap = map;
 
-          const marker = window.leafletMarkersByName[name];
-          const latlng = marker.getLatLng();
+        window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+          errorTileUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+        }).addTo(map);
 
-          map.setView(latlng, Math.max(map.getZoom(), 11), { animate: true });
-          marker.openPopup();
+        // Puntos + info (para popups y para el click desde la lista)
+        const points = [
+          { n: "Ubud", c: [-8.5069, 115.2625], d: "Selva, arrozales, cascadas, templos. Aquí se viene a cargar baterías (y a sudar con estilo).", emoji: "🐒" },
+          { n: "Uluwatu", c: [-8.8149, 115.1147], d: "Acantilados, templo al atardecer y olas. Cuidado con los monos: roban más que Hacienda.", emoji: "🌊" },
+          { n: "Seminyak", c: [-8.6880, 115.1610], d: "Beach clubs, cenas guapas y sunsets. La zona donde todo parece caro por deporte.", emoji: "🍸" },
+          { n: "Gili Trawangan", c: [-8.3503, 116.0386], d: "Agua cristal, snorkel y tortugas. Cero coches, cero estrés, cero excusas.", emoji: "🐢" },
+          { n: "Lombok", c: [-8.8955, 116.2952], d: "Más salvaje y tranquilo. Playas brutales y vibes de 'esto sí es vacaciones'.", emoji: "🥥" }
+        ];
+
+        // Icono mejorado con animación y pulso
+        const createIcon = (index) => {
+          return window.L.divIcon({
+            className: 'custom-marker-icon',
+            html: `
+              <div class="marker-pulse" style="
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                background: rgba(245, 158, 11, 0.3);
+                border-radius: 50%;
+                animation: pulse-marker 2s infinite;
+                top: -12px;
+                left: -12px;
+              "></div>
+              <div style="
+                position: relative;
+                width: 20px;
+                height: 20px;
+                background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+                border-radius: 50%;
+                border: 3px solid white;
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.8), 0 0 40px rgba(245, 158, 11, 0.4);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                z-index: 10;
+              ">${points[index].emoji}</div>
+            `,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+          });
+        };
+
+        const markersByName = {};
+        window.leafletMarkersByName = markersByName;
+
+        // Crear marcadores con iconos mejorados
+        points.forEach((p, idx) => {
+          const title = escapeHtml(p.n);
+          const desc = escapeHtml(p.d);
+          const emoji = p.emoji || "📍";
+
+          const popupHtml = `
+            <div style="
+              font-family: 'Outfit', system-ui, sans-serif;
+              max-width: 280px;
+              padding: 4px;
+            ">
+              <div style="
+                font-weight: 900;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                font-size: 14px;
+                margin-bottom: 8px;
+                color: #111;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+              ">
+                <span style="font-size: 18px;">${emoji}</span>
+                <span>${title}</span>
+              </div>
+              <div style="
+                font-size: 13px;
+                line-height: 1.5;
+                color: #333;
+                margin-bottom: 8px;
+              ">
+                ${desc}
+              </div>
+              <div style="
+                margin-top: 8px;
+                font-size: 11px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                opacity: 0.7;
+                color: #666;
+                border-top: 1px solid #eee;
+                padding-top: 6px;
+              ">
+                Parada ${idx + 1} / ${points.length}
+              </div>
+            </div>
+          `;
+
+          const marker = window.L.marker(p.c, { 
+            icon: createIcon(idx)
+          }).addTo(map);
+
+          marker.bindPopup(popupHtml, { 
+            closeButton: true,
+            className: 'custom-popup',
+            maxWidth: 300
+          });
+
+          // Animación al pasar el mouse sobre el marcador
+          marker.on('mouseover', function() {
+            this.openPopup();
+          });
+
+          markersByName[p.n] = marker;
         });
-      }
 
-      // Importante al entrar por navegación: fuerza el recalculo del tamaño
-      setTimeout(() => { map.invalidateSize(); }, 200);
+        // RUTA dibujada con estilo mejorado y animación
+        const routeCoords = points.map(p => p.c);
+
+        const routeLine = window.L.polyline(routeCoords, {
+          color: "#f59e0b",
+          weight: 5,
+          opacity: 0.9,
+          lineJoin: "round",
+          lineCap: "round",
+          dashArray: "10, 15",
+          className: 'route-line'
+        }).addTo(map);
+
+        // Añadir sombra/glow a la ruta
+        const routeShadow = window.L.polyline(routeCoords, {
+          color: "#fbbf24",
+          weight: 8,
+          opacity: 0.3,
+          lineJoin: "round",
+          lineCap: "round",
+          className: 'route-shadow'
+        }).addTo(map);
+
+        // Asegurar que la sombra esté detrás de la línea principal
+        routeShadow.bringToBack();
+        routeLine.bringToFront();
+
+        window.leafletRouteLine = routeLine;
+
+        // Ajusta el mapa para que se vean todos los puntos con padding generoso
+        setTimeout(() => {
+          try {
+            const bounds = routeLine.getBounds();
+            map.fitBounds(bounds, { 
+              padding: [60, 60],
+              maxZoom: 10
+            });
+          } catch (e) {
+            console.warn('Error al ajustar bounds:', e);
+          }
+        }, 300);
+
+        // Click en la lista: centra y abre popup con animación
+        const stopsEl = document.getElementById("stops");
+        if (stopsEl && !stopsEl.dataset.bound) {
+          stopsEl.dataset.bound = "1";
+          stopsEl.addEventListener("click", (ev) => {
+            const btn = ev.target && ev.target.closest && ev.target.closest("[data-stop]");
+            if (!btn) return;
+            const name = btn.getAttribute("data-stop");
+            if (!name || !window.leafletMarkersByName || !window.leafletMarkersByName[name]) return;
+
+            const marker = window.leafletMarkersByName[name];
+            const latlng = marker.getLatLng();
+
+            // Animación suave al centrar
+            map.flyTo(latlng, Math.max(map.getZoom(), 12), {
+              animate: true,
+              duration: 1.2
+            });
+
+            // Abrir popup después de la animación
+            setTimeout(() => {
+              marker.openPopup();
+              // Efecto de "bounce" visual en el marcador
+              const iconEl = marker._icon;
+              if (iconEl) {
+                iconEl.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                  iconEl.style.transition = 'transform 0.3s ease-out';
+                  iconEl.style.transform = 'scale(1)';
+                }, 200);
+              }
+            }, 600);
+          });
+        }
+
+        // Ocultar loading cuando todo esté listo
+        setTimeout(() => {
+          if (loadingEl) {
+            loadingEl.classList.add('opacity-0');
+            setTimeout(() => loadingEl.classList.add('hidden'), 300);
+          }
+        }, 800);
+
+        // Importante al entrar por navegación: fuerza el recalculo del tamaño
+        setTimeout(() => { 
+          if (window.leafletMap) {
+            try {
+              window.leafletMap.invalidateSize(); 
+            } catch (e) {
+              console.warn('Error al recalcular tamaño del mapa:', e);
+            }
+          }
+        }, 200);
+
+      } catch (e) {
+        console.error('Error al inicializar el mapa:', e);
+        if (loadingEl) loadingEl.classList.add('hidden');
+        if (errorEl) {
+          errorEl.classList.remove('hidden');
+          errorEl.classList.add('flex');
+        }
+      }
     }
 
     document.addEventListener('DOMContentLoaded', loadMap);
@@ -217,7 +398,107 @@ import HeroShell from '../components/HeroShell.astro';
 </Layout>
 
 <style is:global>
-  .leaflet-container { background: #0a0a0a !important; cursor: grab; }
-  @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .animate-fade-in { animation: fade-in 1.5s ease-out forwards; }
+  .leaflet-container { 
+    background: #0a0a0a !important; 
+    cursor: grab; 
+  }
+  
+  .leaflet-container:active {
+    cursor: grabbing;
+  }
+
+  /* Estilos para los marcadores personalizados */
+  .custom-marker-icon {
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Animación de pulso para los marcadores */
+  @keyframes pulse-marker {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  /* Estilos mejorados para los popups */
+  .leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(245, 158, 11, 0.2) !important;
+    padding: 0 !important;
+  }
+
+  .leaflet-popup-content {
+    margin: 12px 16px !important;
+    line-height: 1.5 !important;
+  }
+
+  .leaflet-popup-tip {
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .leaflet-popup-close-button {
+    color: #666 !important;
+    font-size: 20px !important;
+    padding: 8px !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .leaflet-popup-close-button:hover {
+    color: #f59e0b !important;
+    transform: scale(1.2);
+  }
+
+  /* Estilos para la línea de ruta */
+  .route-line {
+    filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6));
+    animation: route-glow 3s ease-in-out infinite;
+  }
+
+  .route-shadow {
+    filter: blur(4px);
+  }
+
+  @keyframes route-glow {
+    0%, 100% {
+      opacity: 0.9;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  /* Hover effect en los botones de paradas */
+  #stops button:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-left-color: rgba(245, 158, 11, 0.6);
+    transform: translateX(4px);
+    transition: all 0.2s ease;
+  }
+
+  #stops button:hover .absolute {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+    transform: scale(1.2);
+    transition: all 0.2s ease;
+  }
+
+  @keyframes fade-in { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+  }
+  
+  .animate-fade-in { 
+    animation: fade-in 1.5s ease-out forwards; 
+  }
 </style>

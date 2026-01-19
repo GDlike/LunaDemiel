@@ -1,0 +1,80 @@
+---
+// Componente para Schema.org structured data
+interface Props {
+  type?: 'WebSite' | 'TravelAction' | 'Event';
+  title?: string;
+  description?: string;
+  url?: string;
+}
+
+const { 
+  type = 'WebSite',
+  title = "Borja & Susan | Luna de Miel Indonesia 2026",
+  description = "Guía y ruta de nuestra luna de miel por Indonesia: Bali, Ubud, Uluwatu, Seminyak, Gili y Lombok.",
+  url
+} = Astro.props;
+
+const siteUrl = url || new URL(Astro.url.pathname, Astro.site || Astro.url.origin).toString();
+const weddingDate = "2026-07-22";
+---
+
+{type === 'WebSite' && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": title,
+    "description": description,
+    "url": siteUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${siteUrl}?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    }
+  })} />
+)}
+
+{type === 'Event' && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Luna de Miel Indonesia 2026",
+    "description": description,
+    "startDate": weddingDate,
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "Indonesia",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ID",
+        "addressRegion": "Bali"
+      }
+    },
+    "organizer": {
+      "@type": "Person",
+      "name": "Borja & Susan"
+    }
+  })} />
+)}
+
+{type === 'TravelAction' && (
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "TravelAction",
+    "name": "Viaje a Indonesia",
+    "description": description,
+    "target": {
+      "@type": "Place",
+      "name": "Indonesia",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ID"
+      }
+    },
+    "startTime": weddingDate
+  })} />
+)}

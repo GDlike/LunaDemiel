@@ -13,12 +13,14 @@ const { title, subtitle, price, href, class: className } = Astro.props;
     href={href}
     target={href ? "_blank" : "_self"}
     rel={href ? "noopener noreferrer" : undefined}
+    aria-label={`${title}${subtitle ? ` - ${subtitle}` : ''}`}
     class={`
     block h-full w-full
     relative group overflow-hidden rounded-3xl 
     bg-zinc-900 border border-white/10 
     hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10
     transition-all duration-500 cursor-pointer
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black
     ${className}
 `}>
     <div class="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-110">

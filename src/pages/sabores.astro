@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import BentoItem from '../components/BentoItem.astro';
 import HeroShell from '../components/HeroShell.astro';
+import Lightbox from '../components/Lightbox.astro';
 
 // Lista de platos vinculada a tus imágenes locales en public/comida/
 const platos = [
@@ -85,7 +86,7 @@ const platos = [
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
       {platos.map((plato, i) => (
-        <div class={`relative group rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl ${plato.col}`}>
+        <div class={`relative group rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl fade-in-on-scroll ${plato.col}`}>
           {/* 
             - loading lazy para no cargar todo de golpe
             - decoding async para que el render no se bloquee
@@ -100,7 +101,9 @@ const platos = [
             fetchpriority={i === 0 ? "high" : "auto"}
             width="1600"
             height="1200"
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            data-lightbox="true"
+            data-lightbox-src={plato.img}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 cursor-pointer"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
 
@@ -130,4 +133,6 @@ const platos = [
       </div>
     </div>
   </div>
+
+  <Lightbox />
 </Layout>
