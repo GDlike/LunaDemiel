@@ -5,18 +5,18 @@ const {
   logoSrc = "/logo.png",
   logoAlt = "Logo Borja & Susan",
   variant = "default",         // "default" | "index"
-  coverScale = "scale-105",    // controla el zoom
-  coverPos = "object-[15%_center] md:object-center", // posición
+  coverScale = "md:scale-105", 
+  coverPos = "object-center object-contain md:object-cover md:object-center",
   coverExtra = "blur-[1px] opacity-80" // extras visuales
 } = Astro.props;
 
-const imgClass = `w-full h-full object-cover ${coverPos} ${coverScale} ${coverExtra}`;
+const imgClass = `w-full h-full ${coverPos} ${coverScale} ${coverExtra}`;
 ---
 
-<header class="relative w-full min-h-[90vh] overflow-hidden">
+<header class="relative w-full h-[90vh] overflow-hidden">
   <!-- Fondo FULL BLEED -->
   <div class="absolute inset-0 z-0 select-none pointer-events-none">
-    <div class="absolute inset-0 left-1/2 w-screen -translate-x-1/2">
+    <div class="absolute inset-0 left-1/2 w-screen -translate-x-1/2 bg-[#0a0a0a]">
       <img src={image} alt={alt} class={imgClass} />
       <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-[#0a0a0a]"></div>
       <div class="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a] to-transparent"></div>
