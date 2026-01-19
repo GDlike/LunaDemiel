@@ -5,9 +5,9 @@ const {
   logoSrc = "/logo.png",
   logoAlt = "Logo Borja & Susan",
   variant = "default",         // "default" | "index"
-  coverScale = "md:scale-105", 
-  coverPos = "object-center object-contain md:object-cover md:object-center",
-  coverExtra = "blur-[1px] opacity-80" // extras visuales
+  coverScale = "md:scale-105", // en móvil SIN zoom extra
+  coverPos = "object-cover object-[50%_60%] md:object-cover md:object-center",
+  coverExtra = "blur-[1px] opacity-80"
 } = Astro.props;
 
 const imgClass = `w-full h-full ${coverPos} ${coverScale} ${coverExtra}`;
@@ -30,7 +30,7 @@ const imgClass = `w-full h-full ${coverPos} ${coverScale} ${coverExtra}`;
   <!-- Contenido -->
   <div class="relative z-10 w-full h-full">
     <!-- Logo (offset para no meterse bajo el menú fijo) -->
-    <div class="w-full max-w-4xl mx-auto px-4 pt-28 md:pt-24 flex justify-center">
+    <div class="w-full max-w-4xl mx-auto px-4 pt-16 md:pt-24 flex justify-center">
       <img
         src={logoSrc}
         alt={logoAlt}
