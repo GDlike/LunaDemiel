@@ -72,47 +72,62 @@ const platos = [
 ---
 
 <Layout title="Gastronomía de Indonesia | B&S">
-    <HeroShell slot="hero" />
+  <HeroShell slot="hero" />
 
-    <div class="pt-10 pb-20 px-4 max-w-7xl mx-auto relative z-20">
-        <div class="text-center mb-20">
-            <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">GUÍA FOODIE</span>
-            <h1 class="text-5xl md:text-7xl font-[900] text-white mb-6">Sabores de la Isla 🌶️</h1>
-            <p class="text-zinc-400 text-xl max-w-3xl mx-auto">
-                La comida en Indonesia es intensa, especiada y colorida. Hemos seleccionado los **9 platos** que no podemos irnos sin probar. (Ojo al Sambal, la salsa roja: pica a traición).
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
-            {platos.map(plato => (
-                <div class={`relative group rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl ${plato.col}`}>
-                    <img src={plato.img} alt={plato.name} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
-                    
-                    <div class="absolute bottom-0 left-0 p-8 w-full z-10">
-                        <div class="flex flex-col items-start gap-2 mb-3">
-                            <span class="bg-amber-600/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-white border border-white/20 shadow-lg">
-                                {plato.spicy}
-                            </span>
-                            <h3 class="text-4xl font-[900] text-white leading-none">{plato.name}</h3>
-                        </div>
-                        <p class="text-zinc-300 text-sm md:text-base leading-relaxed opacity-90 font-medium max-w-prose">
-                            {plato.desc}
-                        </p>
-                    </div>
-                </div>
-            ))}
-        </div>
-
-        <div class="mt-24 p-10 bg-gradient-to-br from-zinc-900 to-black border border-white/10 rounded-[3rem] text-center shadow-2xl relative overflow-hidden">
-             <div class="absolute top-0 right-0 w-64 h-64 bg-amber-600/20 blur-[100px] rounded-full"></div>
-             <div class="relative z-10">
-                <h3 class="text-3xl font-bold text-white mb-4">💡 El Secreto: Los "Warungs"</h3>
-                <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
-                    Huid de los restaurantes occidentales caros. La comida auténtica está en los <strong>Warungs</strong> (pequeños negocios familiares). 
-                    Se come por 2-3€ y el sabor es incomparable. Buscad los que estén llenos de locales.
-                </p>
-             </div>
-        </div>
+  <div class="pt-10 pb-20 px-4 max-w-7xl mx-auto relative z-20">
+    <div class="text-center mb-20">
+      <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">GUÍA FOODIE</span>
+      <h1 class="text-5xl md:text-7xl font-[900] text-white mb-6">Sabores de la Isla 🌶️</h1>
+      <p class="text-zinc-400 text-xl max-w-3xl mx-auto">
+        La comida en Indonesia es intensa, especiada y colorida. Hemos seleccionado los <strong>9 platos</strong> que no podemos irnos sin probar. (Ojo al Sambal, la salsa roja: pica a traición).
+      </p>
     </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
+      {platos.map((plato, i) => (
+        <div class={`relative group rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl ${plato.col}`}>
+          {/* 
+            - loading lazy para no cargar todo de golpe
+            - decoding async para que el render no se bloquee
+            - width/height para reducir CLS (Leaflet, fuentes, etc. ya meten bastante movimiento)
+            - los 2 primeros eager por percepción de velocidad
+          */}
+          <img
+            src={plato.img}
+            alt={plato.name}
+            loading={i < 2 ? "eager" : "lazy"}
+            decoding="async"
+            fetchpriority={i === 0 ? "high" : "auto"}
+            width="1600"
+            height="1200"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+
+          <div class="absolute bottom-0 left-0 p-8 w-full z-10">
+            <div class="flex flex-col items-start gap-2 mb-3">
+              <span class="bg-amber-600/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-white border border-white/20 shadow-lg">
+                {plato.spicy}
+              </span>
+              <h3 class="text-4xl font-[900] text-white leading-none">{plato.name}</h3>
+            </div>
+            <p class="text-zinc-300 text-sm md:text-base leading-relaxed opacity-90 font-medium max-w-prose">
+              {plato.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-24 p-10 bg-gradient-to-br from-zinc-900 to-black border border-white/10 rounded-[3rem] text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-amber-600/20 blur-[100px] rounded-full"></div>
+      <div class="relative z-10">
+        <h3 class="text-3xl font-bold text-white mb-4">💡 El Secreto: Los "Warungs"</h3>
+        <p class="text-zinc-400 text-lg max-w-2xl mx-auto">
+          Huid de los restaurantes occidentales caros. La comida auténtica está en los <strong>Warungs</strong> (pequeños negocios familiares).
+          Se come por 2-3€ y el sabor es incomparable. Buscad los que estén llenos de locales.
+        </p>
+      </div>
+    </div>
+  </div>
 </Layout>

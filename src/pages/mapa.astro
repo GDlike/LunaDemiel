@@ -4,143 +4,220 @@ import HeroShell from '../components/HeroShell.astro';
 ---
 
 <Layout title="Mapa del viaje | Borja & Susan">
-  <HeroShell slot="hero">
-  </HeroShell>
-  <div class="pt-10 pb-20 px-4 max-w-5xl mx-auto relative z-20 space-y-20"></div>
-        <div class="text-center">
-            <span class="text-amber-400 font-[900] tracking-[0.3em] uppercase text-xs mb-4 block animate-pulse">Ubicación mapa</span>
-            </div>
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+  <HeroShell slot="hero"></HeroShell>
 
-            <div class="lg:col-span-1">
-                <div class="bg-zinc-900/90 backdrop-blur-2xl border border-white/10 p-8 rounded-[2.5rem] lg:sticky lg:top-32 shadow-2xl">
-                    <h3 class="text-amber-500 font-[900] text-2xl mb-8 flex items-center gap-3 italic">
-                        📍 Paradas
-                    </h3>
-
-                    <div class="space-y-6 text-left">
-                        { [
-                            { name: "Ubud", desc: "Selva profunda y arrozales." },
-                            { name: "Uluwatu", desc: "Acantilados y templos mágicos." },
-                            { name: "Seminyak", desc: "Beach clubs y atardeceres." },
-                            { name: "Gili Trawangan", desc: "Buceo con tortugas marinas." },
-                            { name: "Lombok", desc: "Paz absoluta y playas vírgenes." }
-                        ].map((loc) => (
-                            <div class="relative pl-8 border-l-2 border-amber-500/20 group">
-                                <div class="absolute -left-[9px] top-0 w-4 h-4 bg-amber-500 rounded-full shadow-[0_0_10px_#f59e0b]"></div>
-                                <p class="text-white font-black text-sm uppercase italic tracking-wider">{loc.name}</p>
-                                <p class="text-zinc-500 text-xs mt-1 leading-relaxed">{loc.desc}</p>
-                            </div>
-                        )) }
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-2">
-                <div class="relative w-full h-[500px] md:h-[750px] bg-zinc-950 rounded-[3rem] p-1 shadow-2xl overflow-hidden border border-white/10">
-                    <div id="map" class="w-full h-full rounded-[2.8rem] z-0 bg-zinc-950"></div>
-
-                    <div class="absolute bottom-6 right-6 z-[1000] pointer-events-none hidden md:block">
-                        <span class="bg-black/80 backdrop-blur-md text-amber-500 text-[9px] px-4 py-1.5 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">
-                            🖱️ Scroll para Zoom
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+  {/* FIX: este div estaba cerrado demasiado pronto. Ahora envuelve TODO el contenido. */}
+  <div class="pt-10 pb-20 px-4 max-w-5xl mx-auto relative z-20 space-y-20">
+    <div class="text-center">
+      <span class="text-amber-400 font-[900] tracking-[0.3em] uppercase text-xs mb-4 block animate-pulse">Ubicación mapa</span>
     </div>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      <div class="lg:col-span-1">
+        <div class="bg-zinc-900/90 backdrop-blur-2xl border border-white/10 p-8 rounded-[2.5rem] lg:sticky lg:top-32 shadow-2xl">
+          <h3 class="text-amber-500 font-[900] text-2xl mb-8 flex items-center gap-3 italic">
+            📍 Paradas
+          </h3>
 
-    <script is:inline>
-        let mapInitTries = 0;
+          <div class="space-y-6 text-left" id="stops">
+            {[
+              { name: "Ubud", desc: "Selva profunda y arrozales." },
+              { name: "Uluwatu", desc: "Acantilados y templos mágicos." },
+              { name: "Seminyak", desc: "Beach clubs y atardeceres." },
+              { name: "Gili Trawangan", desc: "Buceo con tortugas marinas." },
+              { name: "Lombok", desc: "Paz absoluta y playas vírgenes." }
+            ].map((loc) => (
+              <button
+                type="button"
+                data-stop={loc.name}
+                class="w-full text-left relative pl-8 border-l-2 border-amber-500/20 group focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/60 rounded-xl py-1"
+              >
+                <div class="absolute -left-[9px] top-2 w-4 h-4 bg-amber-500 rounded-full shadow-[0_0_10px_#f59e0b]"></div>
+                <p class="text-white font-black text-sm uppercase italic tracking-wider">{loc.name}</p>
+                <p class="text-zinc-500 text-xs mt-1 leading-relaxed">{loc.desc}</p>
+              </button>
+            ))}
+          </div>
 
-        function cleanupMap() {
-            if (window.leafletMap) {
-                try { window.leafletMap.remove(); } catch (e) {}
-                window.leafletMap = null;
-            }
-            const el = document.getElementById('map');
-            if (el) {
-                el.dataset.mapInited = "0";
-                // Por si Leaflet dejó basura
-                el.innerHTML = "";
-            }
-            mapInitTries = 0;
+          <p class="mt-8 text-zinc-500 text-xs leading-relaxed">
+            Tip: pincha una parada y el mapa se mueve. Porque somos civilización, no cavernícolas.
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="relative w-full h-[500px] md:h-[750px] bg-zinc-950 rounded-[3rem] p-1 shadow-2xl overflow-hidden border border-white/10">
+          <div id="map" class="w-full h-full rounded-[2.8rem] z-0 bg-zinc-950"></div>
+
+          <div class="absolute bottom-6 right-6 z-[1000] pointer-events-none hidden md:block">
+            <span class="bg-black/80 backdrop-blur-md text-amber-500 text-[9px] px-4 py-1.5 rounded-full border border-amber-500/30 uppercase tracking-[0.2em] font-black">
+              🖱️ Scroll para Zoom
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script is:inline>
+    let mapInitTries = 0;
+
+    function cleanupMap() {
+      if (window.leafletMap) {
+        try { window.leafletMap.remove(); } catch (e) {}
+        window.leafletMap = null;
+      }
+      const el = document.getElementById('map');
+      if (el) {
+        el.dataset.mapInited = "0";
+        el.innerHTML = "";
+      }
+      mapInitTries = 0;
+      // Limpia referencias para evitar “fantasmas”
+      window.leafletMarkersByName = null;
+      window.leafletRouteLine = null;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function loadMap() {
+      const el = document.getElementById('map');
+      if (!el) return;
+
+      if (el.dataset.mapInited === "1") return;
+
+      if (typeof window.L === 'undefined') {
+        if (mapInitTries < 50) {
+          mapInitTries++;
+          setTimeout(loadMap, 50);
         }
+        return;
+      }
 
-        function loadMap() {
-            const el = document.getElementById('map');
-            if (!el) return;
+      if (window.leafletMap) {
+        try { window.leafletMap.remove(); } catch (e) {}
+        window.leafletMap = null;
+      }
 
-            // Evita doble init si el DOM no se ha destruido como esperas
-            if (el.dataset.mapInited === "1") return;
+      el.dataset.mapInited = "1";
 
-            // Espera a Leaflet si aún no está disponible (navegación + defer)
-            if (typeof window.L === 'undefined') {
-                if (mapInitTries < 50) { // ~2.5s max
-                    mapInitTries++;
-                    setTimeout(loadMap, 50);
-                }
-                return;
-            }
+      const map = window.L.map('map', {
+        scrollWheelZoom: true,
+        zoomControl: false,
+        attributionControl: false
+      }).setView([-8.55, 115.8], 9);
 
-            // Si había uno anterior, fuera
-            if (window.leafletMap) {
-                try { window.leafletMap.remove(); } catch (e) {}
-                window.leafletMap = null;
-            }
+      window.leafletMap = map;
 
-            el.dataset.mapInited = "1";
+      window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19
+      }).addTo(map);
 
-            const map = window.L.map('map', {
-                scrollWheelZoom: true,
-                zoomControl: false,
-                attributionControl: false
-            }).setView([-8.55, 115.8], 9);
+      // Puntos + info (para popups y para el click desde la lista)
+      const points = [
+        { n: "Ubud", c: [-8.5069, 115.2625], d: "Selva, arrozales, cascadas, templos. Aquí se viene a cargar baterías (y a sudar con estilo)." },
+        { n: "Uluwatu", c: [-8.8149, 115.1147], d: "Acantilados, templo al atardecer y olas. Cuidado con los monos: roban más que Hacienda." },
+        { n: "Seminyak", c: [-8.6880, 115.1610], d: "Beach clubs, cenas guapas y sunsets. La zona donde todo parece caro por deporte." },
+        { n: "Gili Trawangan", c: [-8.3503, 116.0386], d: "Agua cristal, snorkel y tortugas. Cero coches, cero estrés, cero excusas." },
+        { n: "Lombok", c: [-8.8955, 116.2952], d: "Más salvaje y tranquilo. Playas brutales y vibes de ‘esto sí es vacaciones’." }
+      ];
 
-            window.leafletMap = map;
+      const icon = window.L.divIcon({
+        className: 'custom-icon',
+        html: "<div style='background-color:#f59e0b;width:14px;height:14px;border-radius:50%;border:2px solid white;box-shadow:0 0 15px #f59e0b;'></div>",
+        iconSize: [14, 14],
+        iconAnchor: [7, 7]
+      });
 
-            window.L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                maxZoom: 19
-            }).addTo(map);
+      const markersByName = {};
+      window.leafletMarkersByName = markersByName;
 
-            const points = [
-                { n: "Ubud", c: [-8.5069, 115.2625] },
-                { n: "Uluwatu", c: [-8.8149, 115.1147] },
-                { n: "Seminyak", c: [-8.6880, 115.1610] },
-                { n: "Gili Trawangan", c: [-8.3503, 116.0386] },
-                { n: "Lombok", c: [-8.8955, 116.2952] }
-            ];
+      points.forEach((p, idx) => {
+        const title = escapeHtml(p.n);
+        const desc = escapeHtml(p.d);
 
-            const icon = window.L.divIcon({
-                className: 'custom-icon',
-                html: "<div style='background-color: #f59e0b; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 15px #f59e0b;'></div>",
-                iconSize: [14, 14],
-                iconAnchor: [7, 7]
-            });
+        const popupHtml = `
+          <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif; max-width: 240px;">
+            <div style="font-weight:900; letter-spacing:.08em; text-transform:uppercase; font-size:12px; margin-bottom:6px; color:#111;">
+              ${title}
+            </div>
+            <div style="font-size:12px; line-height:1.35; color:#222; opacity:.9;">
+              ${desc}
+            </div>
+            <div style="margin-top:8px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; opacity:.65;">
+              Stop ${idx + 1} / ${points.length}
+            </div>
+          </div>
+        `;
 
-            points.forEach(p => {
-                window.L.marker(p.c, {icon: icon}).addTo(map).bindPopup(`<b style="font-family:sans-serif; text-transform:uppercase; color:black;">${p.n}</b>`);
-            });
+        const m = window.L.marker(p.c, { icon }).addTo(map).bindPopup(popupHtml, { closeButton: true });
+        markersByName[p.n] = m;
+      });
 
-            // Importante al entrar por navegación: fuerza el recalculo del tamaño
-            setTimeout(() => { map.invalidateSize(); }, 200);
-        }
+      // RUTA dibujada (orden de viaje)
+      const routeCoords = points.map(p => p.c);
 
-        // Carga normal + navegación Astro
-        document.addEventListener('DOMContentLoaded', loadMap);
-        document.addEventListener('astro:page-load', loadMap);
-        document.addEventListener('astro:after-swap', loadMap);
+      const routeLine = window.L.polyline(routeCoords, {
+        // No fijo colores en tailwind aquí, Leaflet necesita color.
+        // Uso el mismo amber de tu UI para coherencia.
+        color: "#f59e0b",
+        weight: 4,
+        opacity: 0.85,
+        lineJoin: "round",
+        dashArray: "8 10"
+      }).addTo(map);
 
-        // Limpia antes de irte (evita mapas “fantasma”)
-        document.addEventListener('astro:before-swap', cleanupMap);
-    </script>
+      window.leafletRouteLine = routeLine;
+
+      // Ajusta el mapa para que se vean todos los puntos (queda más “pro” que setView fijo)
+      try {
+        const bounds = routeLine.getBounds();
+        map.fitBounds(bounds, { padding: [30, 30] });
+      } catch (e) {
+        // si falla por lo que sea, al menos no explota
+      }
+
+      // Click en la lista: centra y abre popup
+      const stopsEl = document.getElementById("stops");
+      if (stopsEl && !stopsEl.dataset.bound) {
+        stopsEl.dataset.bound = "1";
+        stopsEl.addEventListener("click", (ev) => {
+          const btn = ev.target && ev.target.closest && ev.target.closest("[data-stop]");
+          if (!btn) return;
+          const name = btn.getAttribute("data-stop");
+          if (!name || !window.leafletMarkersByName || !window.leafletMarkersByName[name]) return;
+
+          const marker = window.leafletMarkersByName[name];
+          const latlng = marker.getLatLng();
+
+          map.setView(latlng, Math.max(map.getZoom(), 11), { animate: true });
+          marker.openPopup();
+        });
+      }
+
+      // Importante al entrar por navegación: fuerza el recalculo del tamaño
+      setTimeout(() => { map.invalidateSize(); }, 200);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMap);
+    document.addEventListener('astro:page-load', loadMap);
+    document.addEventListener('astro:after-swap', loadMap);
+    document.addEventListener('astro:before-swap', cleanupMap);
+  </script>
 </Layout>
 
 <style is:global>
-    .leaflet-container { background: #0a0a0a !important; cursor: grab; }
-    @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-fade-in { animation: fade-in 1.5s ease-out forwards; }
+  .leaflet-container { background: #0a0a0a !important; cursor: grab; }
+  @keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-fade-in { animation: fade-in 1.5s ease-out forwards; }
 </style>
