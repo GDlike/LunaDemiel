@@ -1,0 +1,484 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroShell from "../components/HeroShell.astro";
+
+// Nota: Hoteles los meto como TOTAL (habitualmente Booking te da el total de la estancia para 2).
+// El resto (vuelos/seguros/ferry) los meto como POR PERSONA, porque así lo has dado.
+const PRICING = {
+  people: 2,
+  currency: "€",
+  categories: [
+    {
+      id: "hoteles",
+      name: "Hoteles",
+      description: "Alojamiento (precios totales de la reserva)",
+      accent: "from-emerald-500/25 via-emerald-500/10 to-transparent",
+      items: [
+        {
+          id: "sebali",
+          name: "The Sebali Resort (Ubud)",
+          dates: "22–25 jul",
+          note: "Cumple de Susan en villa privada",
+          pricing: "total",
+          value: 403,
+          min: 300,
+          max: 520,
+          step: 1,
+        },
+        {
+          id: "hideaway",
+          name: "Hideaway Villas (Uluwatu)",
+          dates: "25–27 jul",
+          note: "Relax con piscina propia",
+          pricing: "total",
+          value: 208,
+          min: 150,
+          max: 320,
+          step: 1,
+        },
+        {
+          id: "montigo",
+          name: "Montigo Resorts (Seminyak)",
+          dates: "27–29 jul",
+          note: "Zona top junto a Potato Head",
+          pricing: "total",
+          value: 164,
+          min: 120,
+          max: 260,
+          step: 1,
+        },
+        {
+          id: "ponte",
+          name: "Ponte Villas (Gili T)",
+          dates: "29 jul–01 ago",
+          note: "Estrategia para la Full Moon",
+          pricing: "total",
+          value: 340,
+          min: 250,
+          max: 520,
+          step: 1,
+        },
+        {
+          id: "pearl",
+          name: "Pearl of Trawangan (Gili T)",
+          dates: "01–04 ago",
+          note: "Desconexión total",
+          pricing: "total",
+          value: 339,
+          min: 250,
+          max: 520,
+          step: 1,
+        },
+        {
+          id: "amber",
+          name: "Amber Lombok (Lombok)",
+          dates: "04–07 ago",
+          note: "Broche final en playas vírgenes",
+          pricing: "total",
+          value: 291,
+          min: 220,
+          max: 450,
+          step: 1,
+        },
+      ],
+    },
+    {
+      id: "transportes",
+      name: "Transportes",
+      description: "Vuelos, ferrys y traslados que te hacen amar los aeropuertos (mentira)",
+      accent: "from-sky-500/25 via-sky-500/10 to-transparent",
+      items: [
+        {
+          id: "intFlights",
+          name: "Vuelos internacionales BCN ⇄ Yakarta (escala Yeda)",
+          note: "Precio por persona",
+          pricing: "perPerson",
+          value: 597,
+          min: 450,
+          max: 850,
+          step: 1,
+        },
+        {
+          id: "bioBcn",
+          name: "Bilbao ⇄ Barcelona",
+          note: "Estimado por persona (i/v)",
+          pricing: "perPerson",
+          value: 80,
+          min: 40,
+          max: 180,
+          step: 1,
+        },
+        {
+          id: "jktBali",
+          name: "Vuelo Yakarta → Bali",
+          note: "Precio por persona",
+          pricing: "perPerson",
+          value: 80,
+          min: 40,
+          max: 180,
+          step: 1,
+        },
+        {
+          id: "lombokJkt",
+          name: "Vuelo Lombok → Yakarta",
+          note: "Precio por persona",
+          pricing: "perPerson",
+          value: 80,
+          min: 40,
+          max: 180,
+          step: 1,
+        },
+        {
+          id: "giliFerry",
+          name: "Ferry a Gili",
+          note: "Precio por persona",
+          pricing: "perPerson",
+          value: 35,
+          min: 20,
+          max: 80,
+          step: 1,
+        },
+      ],
+    },
+    {
+      id: "seguros",
+      name: "Seguros",
+      description: "Lo que pagas para no llorar si el universo decide probar tu paciencia",
+      accent: "from-amber-500/25 via-amber-500/10 to-transparent",
+      items: [
+        {
+          id: "iai",
+          name: "Seguro IATI (IAI)",
+          note: "Precio por persona",
+          pricing: "perPerson",
+          value: 58,
+          min: 30,
+          max: 120,
+          step: 1,
+        },
+      ],
+    },
+  ],
+};
+
+// Para el script del cliente:
+const initialData = PRICING;
+---
+
+<Layout title="(Secreto) Presupuesto | Borja & Susan" description="Detalle de costes (página no enlazada).">
+  <HeroShell slot="hero" />
+
+  <div class="pt-10 pb-24 max-w-6xl mx-auto px-4 relative z-20">
+    <header class="text-center mb-14">
+      <span class="text-amber-400 font-bold tracking-widest uppercase text-sm mb-4 block">
+        PÁGINA SECRETA
+      </span>
+      <h1 class="text-4xl md:text-6xl font-[900] text-white mb-5">Presupuesto</h1>
+      <p class="text-zinc-400 text-base md:text-lg max-w-2xl mx-auto">
+        Todo lo que cuesta el viaje, con control deslizante para ajustar “estimaciones” y comprobar escenarios.
+        Lo típico: ser adulto responsable durante 30 segundos.
+      </p>
+
+      <div class="mt-7 inline-flex flex-wrap items-center justify-center gap-2 text-xs">
+        <span class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-zinc-300">
+          💡 Hoteles = total reserva
+        </span>
+        <span class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-zinc-300">
+          👤 Vuelos/Seguros/Ferry = por persona
+        </span>
+        <span class="px-3 py-1.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-200">
+          Ajustable con sliders
+        </span>
+      </div>
+    </header>
+
+    <!-- Resumen superior -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-10">
+      <div class="lg:col-span-2 p-6 rounded-2xl border border-white/10 bg-zinc-900/60 backdrop-blur-sm">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-[900] text-white">Resumen rápido</h2>
+            <p class="text-zinc-400 text-sm mt-1">
+              Totales recalculados al vuelo con tus ajustes.
+            </p>
+          </div>
+
+          <div class="text-right">
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Personas</p>
+            <p id="peopleBadge" class="text-white font-[900] text-lg">2</p>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-xl border border-white/10 bg-black/30">
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Total viaje</p>
+            <p id="grandTotal" class="mt-1 text-3xl font-[900] text-white">—</p>
+            <p id="grandHint" class="text-xs text-zinc-400 mt-1">Incluye todo lo listado aquí.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-white/10 bg-black/30">
+            <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Por persona</p>
+            <p id="perPersonTotal" class="mt-1 text-3xl font-[900] text-amber-300">—</p>
+            <p class="text-xs text-zinc-400 mt-1">Hoteles repartidos entre 2 + gastos por persona.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 rounded-2xl border border-white/10 bg-zinc-900/60 backdrop-blur-sm">
+        <h2 class="text-xl font-[900] text-white">Distribución</h2>
+        <p class="text-zinc-400 text-sm mt-1">Peso por categoría en el total.</p>
+
+        <div id="categoryBars" class="mt-5 space-y-3"></div>
+
+        <div class="mt-6 p-4 rounded-xl border border-amber-500/20 bg-amber-500/10">
+          <p class="text-amber-200 text-sm font-bold">
+            Tip: mueve los sliders para simular “y si sube todo” o “y si pillo chollo”.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorías -->
+    <div id="pricingRoot" class="space-y-10"></div>
+
+    <!-- Footer de la página -->
+    <footer class="mt-14 text-center">
+      <p class="text-zinc-500 text-xs">
+        Si esta página “secreta” acaba indexada, no es magia: es que existe un sitemap.
+      </p>
+      <p class="text-zinc-600 text-xs mt-1">
+        (Si quieres, luego te digo cómo excluirla del sitemap/robots, pero hoy no lloro por ti.)
+      </p>
+    </footer>
+  </div>
+
+  <script define:vars={{ initialData }}>
+    const fmt = (n, currency = "€") =>
+      new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR" })
+        .format(Number(n) || 0)
+        .replace("€", currency);
+
+    const data = structuredClone(initialData);
+    const people = data.people ?? 2;
+
+    const els = {
+      root: document.getElementById("pricingRoot"),
+      peopleBadge: document.getElementById("peopleBadge"),
+      grandTotal: document.getElementById("grandTotal"),
+      perPersonTotal: document.getElementById("perPersonTotal"),
+      grandHint: document.getElementById("grandHint"),
+      categoryBars: document.getElementById("categoryBars"),
+    };
+
+    els.peopleBadge.textContent = String(people);
+
+    function buildUI() {
+      els.root.innerHTML = "";
+
+      for (const cat of data.categories) {
+        const section = document.createElement("section");
+        section.className = "p-6 rounded-2xl border border-white/10 bg-zinc-900/40 backdrop-blur-sm";
+
+        section.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+            <div>
+              <h2 class="text-2xl md:text-3xl font-[900] text-white">${cat.name}</h2>
+              <p class="text-zinc-400 text-sm mt-1">${cat.description ?? ""}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Subtotal</p>
+              <p class="text-white font-[900] text-xl" data-cat-total="${cat.id}">—</p>
+            </div>
+          </div>
+
+          <div class="mt-5 h-px bg-gradient-to-r ${cat.accent ?? "from-white/10 to-transparent"}"></div>
+
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4" data-cat-grid="${cat.id}"></div>
+        `;
+
+        const grid = section.querySelector(`[data-cat-grid="${cat.id}"]`);
+        for (const item of cat.items) {
+          const card = document.createElement("article");
+          card.className =
+            "p-5 rounded-2xl border border-white/10 bg-black/30 hover:bg-white/5 hover:border-white/15 transition-all";
+
+          const badge =
+            item.pricing === "perPerson"
+              ? `<span class="px-2 py-1 rounded-md bg-sky-500/10 text-sky-300 border border-sky-500/20 text-[10px] font-black uppercase tracking-widest">Por persona</span>`
+              : `<span class="px-2 py-1 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest">Total</span>`;
+
+          const extra = item.dates
+            ? `<span class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">${item.dates}</span>`
+            : "";
+
+          card.innerHTML = `
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  ${extra}
+                  ${badge}
+                </div>
+                <h3 class="mt-2 text-lg font-bold text-white">${item.name}</h3>
+                ${item.note ? `<p class="text-zinc-400 text-sm mt-1">${item.note}</p>` : ""}
+              </div>
+
+              <div class="text-right shrink-0">
+                <p class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Importe</p>
+                <p class="text-white font-[900] text-xl" data-item-value="${item.id}">—</p>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <div class="flex items-center justify-between text-[11px] text-zinc-500 font-bold">
+                <span>Mín</span>
+                <span>Máx</span>
+              </div>
+              <input
+                class="w-full mt-2 accent-amber-500"
+                type="range"
+                min="${item.min ?? 0}"
+                max="${item.max ?? Math.max(1, item.value ?? 0)}"
+                step="${item.step ?? 1}"
+                value="${item.value ?? 0}"
+                data-slider="${item.id}"
+              />
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-xs text-zinc-400">${fmt(item.min ?? 0, data.currency)}</span>
+                <span class="text-xs text-zinc-400">${fmt(item.max ?? (item.value ?? 0), data.currency)}</span>
+              </div>
+
+              <div class="mt-4">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-black">Peso en el total</span>
+                  <span class="text-[10px] uppercase tracking-widest text-zinc-500 font-black" data-item-share="${item.id}">—</span>
+                </div>
+                <div class="mt-2 h-2 rounded-full bg-white/10 overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-amber-500 to-yellow-400" style="width:0%" data-item-bar="${item.id}"></div>
+                </div>
+              </div>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        }
+
+        els.root.appendChild(section);
+      }
+
+      // listeners
+      document.querySelectorAll("[data-slider]").forEach((el) => {
+        el.addEventListener("input", (e) => {
+          const id = e.target.getAttribute("data-slider");
+          const value = Number(e.target.value || 0);
+
+          for (const cat of data.categories) {
+            const it = cat.items.find((x) => x.id === id);
+            if (it) it.value = value;
+          }
+
+          recalc();
+        });
+      });
+
+      recalc();
+    }
+
+    function computeTotals() {
+      // Total del viaje (global), desglosando items total vs perPerson
+      let totalFixed = 0;     // items pricing=total
+      let totalPerPerson = 0; // items pricing=perPerson, sumado una vez
+
+      const catTotals = {};
+      const itemTotals = {}; // total contribution al total viaje (ya multiplicado si perPerson)
+
+      for (const cat of data.categories) {
+        let catTotal = 0;
+
+        for (const it of cat.items) {
+          const v = Number(it.value || 0);
+
+          if (it.pricing === "perPerson") {
+            const contribution = v * people;
+            catTotal += contribution;
+            totalPerPerson += v;
+            itemTotals[it.id] = contribution;
+          } else {
+            catTotal += v;
+            totalFixed += v;
+            itemTotals[it.id] = v;
+          }
+        }
+
+        catTotals[cat.id] = catTotal;
+      }
+
+      const grandTotal = totalFixed + (totalPerPerson * people);
+      const perPersonTotal = (totalFixed / people) + totalPerPerson;
+
+      return { grandTotal, perPersonTotal, catTotals, itemTotals };
+    }
+
+    function recalc() {
+      const { grandTotal, perPersonTotal, catTotals, itemTotals } = computeTotals();
+
+      els.grandTotal.textContent = fmt(grandTotal, data.currency);
+      els.perPersonTotal.textContent = fmt(perPersonTotal, data.currency);
+
+      // Subtotales por categoría
+      for (const cat of data.categories) {
+        const el = document.querySelector(`[data-cat-total="${cat.id}"]`);
+        if (el) el.textContent = fmt(catTotals[cat.id] ?? 0, data.currency);
+      }
+
+      // Barras por categoría en el panel derecho
+      els.categoryBars.innerHTML = "";
+      const total = grandTotal || 1;
+
+      for (const cat of data.categories) {
+        const v = catTotals[cat.id] ?? 0;
+        const pct = Math.max(0, Math.min(100, (v / total) * 100));
+
+        const row = document.createElement("div");
+        row.className = "space-y-2";
+        row.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-white font-bold">${cat.name}</span>
+            <span class="text-sm text-zinc-300 font-[900]">${fmt(v, data.currency)}</span>
+          </div>
+          <div class="h-2 rounded-full bg-white/10 overflow-hidden">
+            <div class="h-full bg-white/70" style="width:${pct.toFixed(1)}%"></div>
+          </div>
+          <div class="flex items-center justify-between text-[10px] uppercase tracking-widest text-zinc-500 font-black">
+            <span>${pct.toFixed(1)}%</span>
+            <span>del total</span>
+          </div>
+        `;
+        els.categoryBars.appendChild(row);
+      }
+
+      // Valores por item + barras de peso por item
+      for (const cat of data.categories) {
+        for (const it of cat.items) {
+          const v = Number(it.value || 0);
+
+          const valueEl = document.querySelector(`[data-item-value="${it.id}"]`);
+          if (valueEl) {
+            // Mostrar “x2” implícito en la etiqueta (por persona) ya está en tarjeta
+            valueEl.textContent = fmt(v, data.currency);
+          }
+
+          const contribution = itemTotals[it.id] ?? 0;
+          const pct = Math.max(0, Math.min(100, (contribution / total) * 100));
+
+          const shareEl = document.querySelector(`[data-item-share="${it.id}"]`);
+          if (shareEl) shareEl.textContent = `${pct.toFixed(1)}%`;
+
+          const barEl = document.querySelector(`[data-item-bar="${it.id}"]`);
+          if (barEl) barEl.style.width = `${pct.toFixed(1)}%`;
+        }
+      }
+    }
+
+    buildUI();
+  </script>
+</Layout>
